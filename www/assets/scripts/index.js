@@ -33,17 +33,22 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function() {
-		app.receivedEvent('deviceready');
-		window.addEventListener("orientationchange", function(){
-			screen.lockOrientation('portrait');
-		});
+
+		$('.app').fadeIn();
 
 		$('a[href]').on('click', function(event) {
 			event.preventDefault();
 			var el = $(this),
 				href = el.attr('href');
 
-			$('body').fadeOut(function() {});
+			$('.app').fadeOut(function() {
+				document.location.href = href;
+			});
+		});
+
+		app.receivedEvent('deviceready');
+		window.addEventListener("orientationchange", function(){
+			screen.lockOrientation('portrait');
 		});
 	},
 	// Update DOM on a Received Event

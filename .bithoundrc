@@ -1,5 +1,6 @@
 {
   "ignore": [
+    "www/assets/specs/lib/**",
     "www/spec/lib/**",
     "**/deps/**",
     "**/node_modules/**",
