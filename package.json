@@ -1,0 +1,17 @@
+{
+  "name": "todo-ofertas",
+  "version": "1.0.0",
+  "description": "App de Todo Ofertas",
+  "author": "WebChimp Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webchimp/todo-ofertas-pgapp.git"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "jit-grunt": "^0.10.0"
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
+	<!-- Good default declaration:
+	* gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+	* https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+	* Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+		* Enable inline JS: add 'unsafe-inline' to default-src
+		* Enable eval(): add 'unsafe-eval' to default-src
+	* Create your own at http://cspisawesome.com
+	-->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"> -->
+
+	<link rel="stylesheet" type="text/css" href="assets/styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="assets/styles/app.css" />
+	<title>Todo Ofertas</title>
+</head>
+
+<body>
+	<div class="app">
+		<section class="section section-registro">
+
+			<div class="block block-registro">
+				<div class="block block-content-area">
+					<img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
+					<div class="registro-facebook">
+						<a href="#" class="button button-block button-facebook">Regístrate con Facebook</a>
+					</div>
+
+					<form action="#" class="registro-tradicional">
+						<h3>O regístrate de manera tradicional</h3>
+						<div class="form-fields">
+							<div class="form-group">
+								<input type="text" class="input-block form-control" placeholder="Nombre Completo">
+							</div>
+							<div class="form-group">
+								<input type="email" class="input-block form-control" placeholder="Correo Electrónico">
+							</div>
+							<div class="row row-md row-sm row-5">
+								<div class="col col-6 col-md-6 col-sm-6">
+									<div class="form-group">
+										<input type="text" class="input-block form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')">
+									</div>
+								</div>
+								<div class="col col-6 col-md-6 col-sm-6">
+									<div class="form-group">
+										<select class="input-block form-control">
+											<option value="">Género</option>
+											<option value="femenino">Femenino</option>
+											<option value="masculino">Masculino</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="tel" class="input-block form-control" placeholder="Teléfono Móvil">
+							</div>
+						</div>
+						<div class="form-actions">
+							<div class="row row-md row-sm">
+								<div class="col col-6 col-md-6 col-sm-6">
+									<a href="recuperar.html" class="button button-link button-block"></a>
+								</div>
+								<div class="col col-6 col-md-6 col-sm-6">
+									<button class="button button-primary button-block">Registrarme</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="block block-sticky-footer">
+					<a href="index.html">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="assets/scripts/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/index.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+	</script>
+</body>
+
+</html>

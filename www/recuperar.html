@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
+	<!-- Good default declaration:
+	* gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+	* https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+	* Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+		* Enable inline JS: add 'unsafe-inline' to default-src
+		* Enable eval(): add 'unsafe-eval' to default-src
+	* Create your own at http://cspisawesome.com
+	-->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"> -->
+
+	<link rel="stylesheet" type="text/css" href="assets/styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="assets/styles/app.css" />
+	<title>Todo Ofertas</title>
+</head>
+
+<body>
+	<div class="app">
+		<section class="section section-recuperar">
+
+			<div class="block block-registro">
+				<div class="block block-content-area">
+					<img class="img-responsive" src="img/logo-todo-ofertas.png" alt="Todo Ofertas">
+
+					<form action="#" class="registro-tradicional">
+						<h3>Recupera tu contraseña</h3>
+						<div class="form-fields">
+							<div class="form-group">
+								<input type="email" class="input-block form-control" placeholder="Introduce tu email">
+							</div>
+						</div>
+						<div class="row row-md row-sm">
+							<div class="col col-5 col-md-5 col-sm-5"></div>
+							<div class="col col-7 col-md-7 col-sm-7">
+								<button class="button button-primary button-block">Recuperar contraseña</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="block block-sticky-footer">
+					<a href="index.html">Iniciar sesión</a>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="assets/scripts/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/index.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+	</script>
+</body>
+
+</html>
