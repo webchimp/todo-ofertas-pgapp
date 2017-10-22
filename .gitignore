@@ -3,4 +3,4 @@ package.json
 Gruntfile.js
 CONTRIBUTING.md
 plugins/*
-plataforms/*
+platforms/*
