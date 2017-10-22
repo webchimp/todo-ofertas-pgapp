@@ -2,10 +2,10 @@
 <widget id="com.webchimp.todoofertas" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>TodoOfertas</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Aplicación para la empresa Todo Ofertas.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="soporte@chimp.mx" href="http://elchangodelaweb.com">
+        WebChimp Team
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
