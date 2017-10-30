@@ -34,18 +34,6 @@ var app = {
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function() {
 
-		$('.app').fadeIn();
-
-		$('a[href]').on('click', function(event) {
-			event.preventDefault();
-			var el = $(this),
-				href = el.attr('href');
-
-			$('.app').fadeOut(function() {
-				document.location.href = href;
-			});
-		});
-
 		app.receivedEvent('deviceready');
 		window.addEventListener("orientationchange", function(){
 			screen.lockOrientation('portrait');
