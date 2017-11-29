@@ -19,6 +19,40 @@ App = Ladybug.Scarlet.Application.extend({
 		obj.pushController('app', obj.controllers.appController);
 		obj.pushController('session', obj.controllers.sessionController);
 	},
+	ajaxCall: function(options) {
+		var opts = _.defaults(options, {
+				data: {},
+				success: false,
+				error: false,
+				complete: false,
+				errorMsg: 'Ha ocurrido un error, por favor intenta nuevamente más tarde'
+			});
+		if (! opts.data.bearer ) {
+			opts.data.bearer = app.bearer || '';
+		}
+		$.ajax({
+			url: constants.siteUrl + 'api/' + opts.endpoint,
+			type: opts.type,
+			data: opts.data,
+			dataType: 'json',
+			success: function(response) {
+				if (opts.complete) {
+					opts.complete(response);
+				}
+				if (response && response.result == 'success') {
+					if (opts.success) {
+						opts.success(response.data);
+					}
+				} else {
+					if (opts.error) {
+						opts.error(app.errorString(response.message) || opts.errorMsg);
+					} else {
+						$.alert(app.errorString(response.message) || opts.errorMsg);
+					}
+				}
+			}
+		});
+	},
 	onDomReady: function() {
 		var obj = this;
 		obj.router.start();
