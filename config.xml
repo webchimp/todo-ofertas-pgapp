@@ -74,6 +74,10 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="ios" spec="~4.5.4" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="170045566912861" />
+        <variable name="APP_NAME" value="TodoOfertas" />
+    </plugin>
     <plugin name="cordova-plugin-battery-status" spec="~1.1.1" />
     <plugin name="cordova-plugin-console" spec="~1.0.2" />
     <plugin name="cordova-plugin-contacts" spec="~2.0.1" />
