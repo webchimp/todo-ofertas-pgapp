@@ -114,4 +114,8 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
     <plugin name="cordova-plugin-vibration" spec="~2.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
+        <param name="APP_ID" value="170045566912861" />
+        <param name="APP_NAME" value="TodoOfertas" />
+    </gap:plugin>
 </widget>
