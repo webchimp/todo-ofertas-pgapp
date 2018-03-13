@@ -272,6 +272,8 @@ LoginView = Ladybug.Scarlet.View.extend({
 							error: function(message) {
 								form.find('input, select').prop({ disabled: false });
 								form.find('button[type=submit]').prop({ disabled: false }).loading('done');
+
+								$.alert(message);
 							},
 							success: function(response) {
 								form.trigger('reset');
@@ -376,6 +378,33 @@ RegisterView = Ladybug.Scarlet.View.extend({
 
 		app.runVelocity( target.find('[data-animable=auto]') );
 
+		console.log();
+
+		$('#fecha_nacimiento').on('focus', function(event) {
+			var el = $(this),
+				val = el.val();
+
+			if(val) { dateElements = val.split('/'); }
+
+			el.prop('type', 'date');
+
+			if(val) {
+				console.log(dateElements[0] + '-' + dateElements[1] + '-' + dateElements[2]);
+				el.val(dateElements[2] + '-' + dateElements[1] + '-' + dateElements[0]);
+			}
+		});
+
+		$('#fecha_nacimiento').on('blur', function(event) {
+			var el = $(this),
+				val = el.val();
+
+			if(val) { dateElements = val.split('-'); }
+
+			el.prop('type', 'text');
+
+			if(val) { el.val(dateElements[2] + '/' + dateElements[1] + '/' + dateElements[0]); }
+		});
+
 		var form = $('#form-registro');
 
 		form.on('submit', function(event) {
@@ -417,7 +446,7 @@ RegisterView = Ladybug.Scarlet.View.extend({
 
 					},
 					error: function(fields) {
-						$.alert('Por favor llena todos los campos para registrarte');
+						$.alert('Por favor llena todos los campos y acepta los términos y condiciones para registrarte.');
 					}
 				}
 			});
