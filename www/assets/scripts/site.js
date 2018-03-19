@@ -26,8 +26,14 @@ App = Ladybug.Scarlet.Application.extend({
 		obj.parent(options);
 		obj.defaultController = 'app';
 
-		obj.user = Cookies.get('user');
-		obj.bearer = Cookies.get('bearer');
+		//Checking cookies and local storage
+		if(window.localStorage.getItem('user')) {
+			obj.user = JSON.parse(window.localStorage.getItem('user'));
+		} else {
+			obj.user = Cookies.get('user');
+		}
+
+		obj.bearer = window.localStorage.getItem('bearer') || Cookies.get('bearer');
 		obj.zid = Cookies.get('zid');
 
 		obj.controllers.appController = new AppController();
@@ -244,6 +250,10 @@ LoginView = Ladybug.Scarlet.View.extend({
 		$('.app-footer').slideUp(100);
 		$('.app-nav-menu').hide();
 
+		if(app.user) {
+			$('#email').val(app.user.email);
+		}
+
 		app.runVelocity( target.find('[data-animable=auto]') );
 
 		var form = $('#form-login');
@@ -282,6 +292,11 @@ LoginView = Ladybug.Scarlet.View.extend({
 
 								Cookies.set('user', response.user);
 								Cookies.set('bearer', response.bearer);
+
+								console.log(response.user);
+
+								window.localStorage.setItem('user', JSON.stringify(response.user));
+								window.localStorage.setItem('bearer', response.bearer);
 
 								app.user = response.user;
 								app.bearer = response.bearer;
@@ -842,6 +857,7 @@ AppController = BaseController.extend({
 		app.user = null;
 		Cookies.remove('user');
 		Cookies.remove('bearer');
+		window.localStorage.removeItem('bearer');
 		app.router.navigate('#!/app');
 	}
 });
