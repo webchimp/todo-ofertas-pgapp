@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.webchimp.TodoOfertas" version="1.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.webchimp.TodoOfertas" version="1.4.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>TodoOfertas</name>
     <description>
         Aplicación para la empresa Todo Ofertas.
@@ -9,7 +9,7 @@
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="15" />
     <preference name="orientation" value="portrait" />
     <platform name="android">
         <icon density="ldpi" src="www/assets/resources/icon/android/drawable-ldpi-icon.png" />
