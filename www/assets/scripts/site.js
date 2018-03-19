@@ -251,8 +251,18 @@ LoginView = Ladybug.Scarlet.View.extend({
 		$('.app-nav-menu').hide();
 
 		if(app.user) {
+			console.log(app.user.email);
 			$('#email').val(app.user.email);
 		}
+
+		$('.button-facebook').on('click', function(event) {
+			event.preventDefault();
+			facebookConnectPlugin.login(
+				[],
+				function() {},
+				function() {}
+			);
+		});
 
 		app.runVelocity( target.find('[data-animable=auto]') );
 
