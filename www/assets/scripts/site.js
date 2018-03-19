@@ -42,10 +42,16 @@ App = Ladybug.Scarlet.Application.extend({
 		obj.pushController('app', obj.controllers.appController);
 		obj.pushController('session', obj.controllers.sessionController);
 
+		document.addEventListener('deviceready', obj.onDeviceReady, false);
+
 		obj.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 	},
 	checkBearer: function() {
 		return !! app.bearer;
+	},
+	onDeviceReady: function() {
+
+		console.log('onDeviceReady fired!');
 	},
 	ajaxCall: function(options) {
 		var opts = _.defaults(options, {
@@ -257,10 +263,12 @@ LoginView = Ladybug.Scarlet.View.extend({
 
 		$('.button-facebook').on('click', function(event) {
 			event.preventDefault();
+			console.log('Facebook Login');
+
 			facebookConnectPlugin.login(
-				[],
-				function() {},
-				function() {}
+				['public_profile'],
+				function() { console.log('facebookConnectPlugin success'); },
+				function() { console.log('facebookConnectPlugin error'); }
 			);
 		});
 
