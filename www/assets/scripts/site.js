@@ -50,7 +50,6 @@ App = Ladybug.Scarlet.Application.extend({
 		return !! app.bearer;
 	},
 	onDeviceReady: function() {
-
 		console.log('onDeviceReady fired!');
 	},
 	ajaxCall: function(options) {
@@ -266,9 +265,15 @@ LoginView = Ladybug.Scarlet.View.extend({
 			console.log('Facebook Login');
 
 			facebookConnectPlugin.login(
-				['public_profile'],
-				function() { console.log('facebookConnectPlugin success'); },
-				function() { console.log('facebookConnectPlugin error'); }
+				['public_profile', 'email'],
+				function() {
+
+					console.log('facebookConnectPlugin success');
+				},
+				function() {
+
+					console.log('facebookConnectPlugin error');
+				}
 			);
 		});
 
