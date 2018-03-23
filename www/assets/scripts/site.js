@@ -44,7 +44,7 @@ App = Ladybug.Scarlet.Application.extend({
 
 		obj.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-		document.addEventListener("deviceready", function() { obj.onDeviceReady() }, false);
+		document.addEventListener("deviceready", function() { obj.onDevideReady() }, false);
 	},
 	checkBearer: function() {
 		return !! app.bearer;
@@ -97,7 +97,7 @@ App = Ladybug.Scarlet.Application.extend({
 			}
 		});
 	},
-	onDeviceReady: function() {
+	onDomReady: function() {
 		var obj = this;
 		obj.router.start();
 
