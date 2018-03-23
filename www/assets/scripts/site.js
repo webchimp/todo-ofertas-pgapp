@@ -42,15 +42,24 @@ App = Ladybug.Scarlet.Application.extend({
 		obj.pushController('app', obj.controllers.appController);
 		obj.pushController('session', obj.controllers.sessionController);
 
-		document.addEventListener('deviceready', obj.onDeviceReady, false);
-
 		obj.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+		document.addEventListener("deviceready", function() { obj.onDeviceReady() }, false);
 	},
 	checkBearer: function() {
 		return !! app.bearer;
 	},
-	onDeviceReady: function() {
-		console.log('onDeviceReady fired!');
+	errorString: function(err) {
+		console.log(err);
+		var strings = {
+			ERR_INVALID_CREDENTIALS: '¡Ups! El nombre de usuario o contraseña es incorrecto',
+			ERR_NON_EXISTENT_USER: 'El correo electronico que ingresaste es incorrecto'
+		},
+		ret = err;
+		if ( typeof strings[err] !== 'undefined' ) {
+			ret = strings[err];
+		}
+		return ret;
 	},
 	ajaxCall: function(options) {
 		var opts = _.defaults(options, {
@@ -78,17 +87,17 @@ App = Ladybug.Scarlet.Application.extend({
 					}
 				} else {
 					if (opts.error) {
-						//opts.error(app.errorString(response.message) || opts.errorMsg);
-						opts.error(response.message || opts.errorMsg);
+						opts.error(app.errorString(response.message) || opts.errorMsg);
+						//opts.error(response.message || opts.errorMsg);
 					} else {
-						//$.alert(app.errorString(response.message) || opts.errorMsg);
-						$.alert(response.message || opts.errorMsg);
+						$.alert(app.errorString(response.message) || opts.errorMsg);
+						//$.alert(response.message || opts.errorMsg);
 					}
 				}
 			}
 		});
 	},
-	onDomReady: function() {
+	onDeviceReady: function() {
 		var obj = this;
 		obj.router.start();
 
@@ -262,18 +271,10 @@ LoginView = Ladybug.Scarlet.View.extend({
 
 		$('.button-facebook').on('click', function(event) {
 			event.preventDefault();
-			console.log('Facebook Login');
-
 			facebookConnectPlugin.login(
-				['public_profile', 'email'],
-				function() {
-
-					console.log('facebookConnectPlugin success');
-				},
-				function() {
-
-					console.log('facebookConnectPlugin error');
-				}
+				[],
+				function() {},
+				function() {}
 			);
 		});
 
@@ -385,7 +386,7 @@ RecoverView = Ladybug.Scarlet.View.extend({
 								form.trigger('reset');
 								form.find('input, select').prop({ disabled: false });
 								form.find('button[type=submit]').prop({ disabled: false }).loading('done');
-								$.alert(response.message || 'Hemos enviado un correo electrónico para activar tu cuenta.');
+								$.alert(response.message || 'Te hemos enviado un correo electronico para cambiar tu contraseña.');
 								app.router.navigate('#!/app');
 							}
 						});
@@ -415,8 +416,6 @@ RegisterView = Ladybug.Scarlet.View.extend({
 		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
 
 		app.runVelocity( target.find('[data-animable=auto]') );
-
-		console.log();
 
 		$('#fecha_nacimiento').on('focus', function(event) {
 			var el = $(this),
@@ -760,6 +759,114 @@ ZonesView = Ladybug.Scarlet.View.extend({
 	}
 });
 
+/* ---------------------------------------------------------------------------------------------- */
+
+ProfileView = Ladybug.Scarlet.View.extend({
+	animate: true,
+	onInit: function() {
+		var obj = this;
+		obj.templates.base = Ladybug.Utils.compileTemplate('#section-profile');
+	},
+	onRender: function() {
+		var obj = this,
+			target = $('.app-content');
+		target.html( obj.templates.base() );
+		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
+
+		app.runVelocity( target.find('[data-animable=auto]') );
+
+		$('#fecha_nacimiento').on('focus', function(event) {
+			var el = $(this),
+				val = el.val();
+
+			if(val) { dateElements = val.split('/'); }
+
+			el.prop('type', 'date');
+
+			if(val) {
+				console.log(dateElements[0] + '-' + dateElements[1] + '-' + dateElements[2]);
+				el.val(dateElements[2] + '-' + dateElements[1] + '-' + dateElements[0]);
+			}
+		});
+
+		$('#fecha_nacimiento').on('blur', function(event) {
+			var el = $(this),
+				val = el.val();
+
+			if(val) { dateElements = val.split('-'); }
+
+			el.prop('type', 'text');
+
+			if(val) { el.val(dateElements[2] + '/' + dateElements[1] + '/' + dateElements[0]); }
+		});
+
+		var form = $('#form-perfil');
+
+		form.on('submit', function(event) {
+			event.preventDefault();
+			console.log(form.serializeObject());
+			form.validate({
+				callbacks: {
+					fail: function(field, type, message) {
+						field.closest('.form-group').addClass('has-error');
+						field.on('focus', function() {
+							field.closest('.form-group').removeClass('has-error');
+							field.off('focus');
+						});
+					},
+					success: function() {
+						var data = form.serializeObject();
+						form.find('input, select').prop('disabled', true);
+						form.find('button[type=submit]').prop('disabled', true).loading({ text: 'Enviando...' });
+
+						app.ajaxCall({
+							endpoint: 'users/profile',
+							type: 'post',
+							data: data,
+							error: function(message) {
+
+								form.find('input, select').prop('disabled', false);
+								form.find('button[type=submit]').prop('disabled', false).loading('done');
+								$.alert(message);
+							},
+							success: function(response) {
+
+								form.find('input, select').prop('disabled', false);
+								form.find('button[type=submit]').prop('disabled', false).loading('done');
+								$.alert(response.message || 'Gracias por registrarte. Hemos enviado un correo electrónico a tu bandeja para que actives tu cuenta.');
+								form.trigger('reset');
+								app.router.navigate('session/#!/categories');
+							}
+						});
+
+					},
+					error: function(fields) {
+						$.alert('Por favor llena todos los campos y acepta los términos y condiciones para registrarte.');
+					}
+				}
+			});
+		});
+	}
+});
+
+/* ---------------------------------------------------------------------------------------------- */
+
+FavoritesView = Ladybug.Scarlet.View.extend({
+	animate: true,
+	onInit: function() {
+		var obj = this;
+		obj.templates.base = Ladybug.Utils.compileTemplate('#section-favorites');
+	},
+	onRender: function() {
+		var obj = this,
+			target = $('.app-content');
+		target.html( obj.templates.base() );
+		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
+
+		app.runVelocity( target.find('[data-animable=auto]') );
+	}
+});
+
 /* ______            __             ____
   / ____/___  ____  / /__________  / / /__  __________
  / /   / __ \/ __ \/ __/ ___/ __ \/ / / _ \/ ___/ ___/
@@ -900,6 +1007,8 @@ SessionController = BaseController.extend({
 		obj.pushAction('pago-tarjeta', obj.pagoTarjetaAction);
 		obj.pushAction('compra-gracias', obj.compraGraciasAction);
 		obj.pushAction('zones', obj.zonesAction);
+		obj.pushAction('profile', obj.profileAction);
+		obj.pushAction('favorites', obj.profileAction);
 
 		//obj.views.header = new HeaderView();
 		obj.views.footer = new FooterView();
@@ -1031,9 +1140,20 @@ SessionController = BaseController.extend({
 			obj.views.zones = new ZonesView();
 		}
 		obj.setActiveView(obj.views.zones, function() {
-
 			obj.fetchZones();
 		});
+	},
+	profileAction: function() {
+		var obj = this;
+		if(!app.checkBearer()) {
+			app.router.navigate('#!/app');
+			return;
+		}
+
+		if (! obj.views['profile'] ) {
+			obj.views.profile = new ProfileView();
+		}
+		obj.setActiveView(obj.views.profile);
 	},
 	fetchCategories: function() {
 		var obj = this;

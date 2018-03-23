@@ -2,32 +2,31 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="format-detection" content="telephone=no" />
-	<meta name="msapplication-tap-highlight" content="no" />
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-	<!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap: ws: https://ssl.gstatic.com;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
 
-	<link rel="stylesheet" type="text/css" href="assets/styles/reset.css" />
-	<link rel="stylesheet" type="text/css" href="assets/styles/app.css" />
-	<link rel="stylesheet" type="text/css" href="assets/styles/jquery.alert.css" />
-	<link rel="stylesheet" type="text/css" href="assets/styles/font-awesome.min.css" />
-	<title>Todo Ofertas</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/app.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/jquery.alert.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/font-awesome.min.css" />
+    <title>Todo Ofertas</title>
 </head>
 
 <body>
-	<div id="fb-root"></div>
-	<div class="app">
-		<header class="app-header"></header>
-		<section class="app-content"></section>
-		<nav class="app-nav-menu"></nav>
-		<footer class="app-footer"></footer>
-	</div>
+    <div class="app">
+        <header class="app-header"></header>
+        <section class="app-content"></section>
+        <nav class="app-nav-menu"></nav>
+        <footer class="app-footer"></footer>
+    </div>
 
-	<script type="text/template" id="partial-footer">
-		<nav class="app-menu">
-			<a class="menu-item" href="#!/session/categories">
+    <script type="text/template" id="partial-footer">
+        <nav class="app-menu">
+            <a class="menu-item" href="#!/session/categories">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<g>
 					<path d="M49.9,181.6L2.5,146.9c-0.9-0.7-2.2-0.7-3.1,0l-47.4,34.7c-1.2,0.8-1.4,2.5-0.6,3.6c0.8,1.2,2.5,1.4,3.6,0.6L1,152.2,l45.9,33.6c0.5,0.3,1,0.5,1.5,0.5c0.8,0,1.6-0.4,2.1-1.1C51.3,184.1,51.1,182.5,49.9,181.6z"/>
@@ -36,7 +35,7 @@
 			</svg>
 			<span>Categorías</span>
 		</a>
-			<a class="menu-item" href="#!/session/buscar">
+            <a class="menu-item" href="#!/session/buscar">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon2-st0{clip-path:url(#ICON2_SVGID_1_);}</style>
 				<g><g>
@@ -47,7 +46,7 @@
 			</svg>
 			<span>Buscar</span>
 		</a>
-			<a class="menu-item" href="#!/session/favorites">
+            <a class="menu-item" href="#!/session/favorites">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon3-st0{clip-path:url(#ICON3_SVGID_1_);}</style>
 				<g><g>
@@ -58,7 +57,7 @@
 			</svg>
 			<span>Favoritos</span>
 		</a>
-			<a class="menu-item" href="#!/session/zones">
+            <a class="menu-item" href="#!/session/zones">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon4-st0{clip-path:url(#ICON4_SVGID_2_);}</style>
 				<g>
@@ -72,7 +71,7 @@
 			</svg>
 			<span>Zona</span>
 		</a>
-			<a class="menu-item js-open-app-nav-menu" href="#">
+            <a class="menu-item js-open-app-nav-menu" href="#">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<g>
 					<path d="M-41.6,168.4h85.1c1.9,0,3.5-1.6,3.5-3.5c0-1.9-1.6-3.5-3.5-3.5h-85.1c-1.9,0-3.5,1.6-3.5,3.5C-45,166.9-43.5,168.4-41.6,168.4L-41.6,168.4z M-41.6,168.4"/>
@@ -82,686 +81,748 @@
 			</svg>
 			<span>Más</span>
 		</a>
-		</nav>
-	</script>
-	<script type="text/template" id="partial-header"></script>
-	<script type="text/template" id="partial-menu">
-		<div class="menu-wrapper">
-			<img class="logo img-responsive" src="assets/images/logo-menu.png" alt="Todo Ofertas">
-			<ul class="menu">
-				<li><a href="#">Mi Perfil</a></li>
-				<li><a href="#">Notificaciones</a></li>
-				<li><a href="#">Historial de Compras</a></li>
-				<li><a href="http://www.todoofertasapp.com" target="_blank">Ayuda</a></li>
-				<li><a href="http://www.todoofertasapp.com/tos" target="_blank">Legal</a></li>
-				<li><a href="/app/#!/logout">Cerrar Sesión</a></li>
-			</ul>
-		</div>
-	</script>
-
-	<!-- CATEGORIES -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-categories">
-		<section class="section section-logged js-section-current section-categorias">
-			<div class="section-title">
-				<div class="title-icon title-icon-left">
-					<img src="assets/images/monograma.png" alt="Todo Ofertas">
-				</div>
-				<div class="title-icon title-icon-right">
-					<img src="assets/images/menu-question-icon.svg" alt="Ayuda">
-				</div>
-				<h2>Categorías</h2>
-			</div>
-			<div class="block block-content-area">
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-categories-list">
-
-		<% _.each(categories, function(category, k) { %>
-			<article class="category animable">
-				<a href="#!/session/category/<%= category.slug %>"></a>
-				<div class="category-content">
-					<img class="category-icon img-responsive" src="<%= constants.siteUrl + '/assets/images/categories/' + category.icon %>" alt="<%= category.name %>">
-					<h3 class="category-bame">
-						<%= category.name %>
-					</h3>
-				</div>
-			</article>
-			<% }) %>
-
-	</script>
-	<!-- SINGLE OFERTA -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-category">
-		<section class="section section-logged js-section-current section-category">
-			<div class="section-title">
-				<div class="title-icon title-icon-left">
-					<a class="js-filtros" href="#"><img src="assets/images/menu-controls-icon.svg" alt="Filtrar"></a>
-				</div>
-				<div class="title-icon title-icon-right">
-					<img src="assets/images/menu-question-icon.svg" alt="Ayuda">
-				</div>
-				<h2>
-					<!-- -->
-				</h2>
-			</div>
-			<div class="block block-content-area">
-
-				<div class="category-filtros">
-					<ul class="filtros-list">
-						<li><a href="#"><i class="fa fa-square"></i> Cabello</a></li>
-					</ul>
-
-					<div class="filtros-actions">
-						<div class="margins">
-							<div class="row row-md row-sm">
-								<div class="col col-6 col-md-6 col-sm-6">
-									<a href="#" class="button button-block button-ellipsis">Borrar filtros</a>
-								</div>
-								<div class="col col-6 col-md-6 col-sm-6">
-									<a href="#" class="button button-block button-primary button-ellipsis">Filtrar</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="category-offers">
-					<!-- -->
-				</div>
-
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-category-offers">
-
-		<% console.log(offers) ;_.each(offers, function(offer, k) { %>
-			<article class="oferta">
-				<a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
-				<a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
-
-				<div class="oferta-negocio">
-					<img class="negocio-logo" src="" alt="">
-					<div class="negocio-info">
-						<h2 class="negocio-nombre">
-							<%= offer.business.name %>
-						</h2>
-						<p class="negocio-direccion">
-							<%= offer.business.address %>
-						</p>
-					</div>
-				</div>
-
-				<img src="" alt="" class="oferta-category">
-
-				<div class="oferta-access">
-
-					<div class="price-tag">$
-						<%= offer.price %>
-					</div>
-
-					<i class="fa fa-angle-right access-icon"></i>
-
-					<date class="oferta-fecha">
-						<h2>Hasta</h2>
-						<% var date = new Date(offer.end_date); console.log(date); %>
-							<span class="fecha-dia"><%= date.getUTCDate() %></span>
-							<span class="fecha-mes"><%= app.months[date.getUTCMonth()] %></span>
-					</date>
-
-					<div class="oferta-titulo">
-						<h2>
-							<%= offer.name %>
-						</h2>
-						<p>
-							<%= offer.tagline %>
-						</p>
-					</div>
-				</div>
-			</article>
-			<% }) %>
-
-	</script>
-	<!-- COMPRA OFERTA -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-compra-gracias">
-		<section class="section section-logged js-section-current section-compra-gracias">
-			<div class="section-title">
-				<div class="title-icon title-icon-left">
-					<img src="assets/images/monograma.png" alt="Todo Ofertas">
-				</div>
-				<div class="title-icon title-icon-right">
-					<img src="assets/images/icono-help.png" alt="Ayuda">
-				</div>
-				<h2>Gracias por tu compra</h2>
-			</div>
-			<div class="block block-content-area">
-
-				<h2 class="block-title">Felicidades, has hecho una gran compra</h2>
-
-				<div class="monto">
-					<h3>Monto Pagado</h3>
-					<h2>$150.<sup>00 MXN</sup></h2>
-				</div>
-
-				<h2 class="block-title">Referencia</h2>
-
-				<div class="referencia">
-					<code>EF6738D</code>
-					<a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
-				</div>
-
-				<div class="descripcion the-content">
-					<h2>Instrucciones</h2>
-					<ol>
-						<li>Acude a <span class="nombre-negocio"></span>. <a href="#">¿Cómo llegar?</a></li>
-						<li>Presenta la referencia de pago y haz válida tu oferta.</li>
-					</ol>
-
-					<h2>Tu oferta comprada</h2>
-					<p>Tu oferta comprada se encuentra ahorita en tu historial de compras</p>
-				</div>
-
-				<div class="the-offer">
-					<!-- -->
-				</div>
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-compra-gracias-single">
-
-		<article class="oferta">
-			<div class="oferta-negocio">
-				<img class="negocio-logo" src="" alt="">
-				<div class="negocio-info">
-					<h2 class="negocio-nombre">
-						<%= offer.business.name %>
-					</h2>
-					<p class="negocio-direccion">
-						<%= offer.business.address %>
-					</p>
-				</div>
-			</div>
-
-			<img src="" alt="" class="oferta-category">
-
-			<div class="oferta-access">
-				<a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
-				<div class="oferta-titulo">
-					<h2>
-						<%= offer.name %>
-					</h2>
-					<p>
-						<%= offer.tagline %>
-					</p>
-				</div>
-			</div>
-		</article>
-	</script>
-	<!-- COMPRA OFERTA -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-compra-oferta">
-		<section class="section section-logged js-section-current section-compra-oferta">
-			<div class="section-title">
-				<h2>Compra Oferta</h2>
-			</div>
-			<div class="block block-content-area">
-
-				<img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
-
-				<h2 class="block-title">Estás a punto de comprar...</h2>
-				<div class="the-offer">
-					<!-- -->
-				</div>
-
-				<div class="metodo-pago">
-					<h2>Selecciona tu método de pago</h2>
-					<ul>
-						<li class="pago-tarjeta"><a class="js-pago-tarjeta" href="#">Pago con tarjeta</a></li>
-						<li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago con efectivo</a></li>
-					</ul>
-				</div>
-
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-compra-oferta-single">
-
-		<article class="oferta">
-			<div class="oferta-negocio">
-				<img class="negocio-logo" src="" alt="">
-				<div class="negocio-info">
-					<h2 class="negocio-nombre">
-						<%= offer.business.name %>
-					</h2>
-					<p class="negocio-direccion">
-						<%= offer.business.address %>
-					</p>
-				</div>
-			</div>
-
-			<img src="" alt="" class="oferta-category">
-
-			<div class="oferta-access">
-				<a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
-				<div class="oferta-titulo">
-					<h2>
-						<%= offer.name %>
-					</h2>
-					<p>
-						<%= offer.tagline %>
-					</p>
-				</div>
-			</div>
-		</article>
-	</script>
-	<!-- LOGIN -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-login">
-		<section class="section js-section-current section-login">
-
-			<div class="block section-login">
-				<div class="block block-content-area">
-					<form id="form-login" action="#">
-						<img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
-						<div class="login-facebook">
-							<a href="#!/session/categories" class="button button-block button-facebook button-ellipsis"><i class="fa fa-facebook fa-fw"></i> Iniciar sesión con Facebook</a>
-						</div>
-
-						<div class="login-tradicional">
-							<h3 class="titulo-line"><span>O INICIA SESIÓN CON TU EMAIL</span></h3>
-							<div class="form-fields">
-								<div class="form-group">
-									<input name="email" id="email" type="email" data-validate="required" class="input-block form-control" placeholder="Introduce tu email">
-								</div>
-								<div class="form-group">
-									<input name="password" id="password" type="password" data-validate="required" class="input-block form-control" placeholder="Introduce tu contraseña">
-								</div>
-							</div>
-							<div class="form-actions">
-								<div class="row row-md row-sm row-collapse">
-									<div class="col col-7 col-md-7 col-sm-7">
-										<a href="#!/app/recover" class="button button-link button-block button-ellipsis">Olvidé mi contraseña</a>
-									</div>
-									<div class="col col-5 col-md-5 col-sm-5">
-										<button class="button button-primary button-block button-ellipsis">INICIAR SESIÓN</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="block block-sticky-footer">
-					<a href="#!/app/register">¿No tienes una cuenta? Regístrate aquí</a>
-				</div>
-			</div>
-		</section>
-	</script>
-	<!-- SINGLE OFERTA -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-oferta">
-		<section class="section section-logged js-section-current section-oferta">
-			<div class="section-title">
-				<div class="title-icon title-icon-left">
-					<a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
-				</div>
-				<div class="title-icon title-icon-right">
-					<img src="assets/images/icono-help.png" alt="Ayuda">
-				</div>
-				<h2>
-					<!-- -->
-				</h2>
-			</div>
-			<div class="block block-content-area">
-				<div class="the-offer">
-					<!-- -->
-				</div>
-				<div class="oferta-comprar">
-					<div class="oferta-deadline">
-						<i class="fa fa-calendar"></i>
-						<p></p>
-					</div>
-					<div class="oferta-cta">
-						<div class="margins">
-							<div class="row row-sm row-5">
-								<div class="col col-3 col-sm-3">
-									<div class="price-tag"></div>
-								</div>
-								<div class="col col-9 col-sm-9">
-									<a href="#" class="js-compra-oferta button button-primary button-large button-block">Comprar</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-oferta-single">
-
-		<article class="oferta">
-			<a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
-
-			<div class="oferta-negocio">
-				<img class="negocio-logo" src="" alt="">
-				<div class="negocio-info">
-					<h2 class="negocio-nombre">
-						<%= offer.business.name %>
-					</h2>
-					<p class="negocio-direccion">
-						<%= offer.business.address %>
-					</p>
-				</div>
-			</div>
-
-			<img src="" alt="" class="oferta-category">
-
-			<div class="oferta-access">
-				<div class="price-tag">$
-					<%= offer.price %>
-				</div>
-				<div class="oferta-titulo">
-					<h2>
-						<%= offer.name %>
-					</h2>
-					<p>
-						<%= offer.tagline %>
-					</p>
-				</div>
-			</div>
-		</article>
-
-		<div class="oferta-content">
-			<div class="content-como-llegar">
-				<div class="margins">
-					<a href="#" class="button button-primary button-large button-block"><i class="fa fa-fw fa-map-marker"></i> Como llegar</a>
-				</div>
-
-				<h2 class="content-title">Descripción de Oferta</h2>
-				<div class="margins">
-					<div class="the-content">
-						<%= offer.description %>
-					</div>
-				</div>
-
-				<h2 class="content-title">Términos y Condiciones</h2>
-				<div class="margins">
-					<div class="the-content">
-						<%= offer.tos %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</script>
-	<!-- PAGO CON TARJETA -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-pago-tarjeta">
-		<section class="section section-logged js-section-current section-pago section-pago-tarjeta">
-			<div class="section-title">
-				<div class="title-icon title-icon-left">
-					<a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atrás"></a>
-				</div>
-				<div class="title-icon title-icon-right">
-					<img src="assets/images/icono-help.png" alt="Ayuda">
-				</div>
-				<h2>Pago con Tarjeta</h2>
-			</div>
-			<div class="block block-content-area">
-
-				<img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
-
-				<h2 class="block-title">Completa el siguiente formulario</h2>
-
-				<div class="monto">
-					<p>Monto a pagar</p>
-					<h3 class="monto"></h3>
-				</div>
-
-				<div class="margins">
-					<form id="payment-form" action="" method="post">
-
-						<input type="hidden" name="token_id" id="token_id">
-						<input type="hidden" name="use_card_points" id="use_card_points" value="false">
-
-						<div class="form-group">
-							<input type="text" maxlength="40" placeholder="Nombre en la tarjeta" autocomplete="off" class="input-block form-control" data-openpay-card="holder_name">
-						</div>
-						<div class="form-group">
-							<input type="text" maxlength="16" placeholder="Número de tarjeta" class="input-block form-control" data-openpay-card="card_number">
-						</div>
-						<div class="row row-md row-sm row-5">
-							<div class="col col-md-6 col-sm-6">
-								<div class="form-group">
-									<div class="row row-md row-sm row-collapse">
-										<div class="col col-md-6 col-sm-6">
-											<input type="text" maxlength="2" placeholder="Mes" class="input-block form-control" data-openpay-card="expiration_month">
-										</div>
-										<div class="col col-md-6 col-sm-6">
-											<input type="text" maxlength="2" placeholder="Año" class="input-block form-control" data-openpay-card="expiration_year">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col col-md-6 col-sm-6">
-								<div class="form-group">
-									<input type="text" placeholder="CVV" class="input-block form-control" autocomplete="off" data-openpay-card="cvv2">
-								</div>
-							</div>
-						</div>
-
-						<p><button type="submit" href="#" class="js-pagar button button-primary button-block">Realizar pago</button></p>
-						<p><a href="#" class="js-back button button-secondary button-block">Cambiar Método de Pago</a></p>
-					</form>
-				</div>
-
-				<div class="the-offer">
-					<!-- -->
-				</div>
-			</div>
-		</section>
-	</script>
-
-	<script type="text/template" id="section-pago-tarjeta-single">
-
-		<article class="oferta">
-			<div class="oferta-negocio">
-				<img class="negocio-logo" src="" alt="">
-				<div class="negocio-info">
-					<h2 class="negocio-nombre">
-						<%= offer.business.name %>
-					</h2>
-					<p class="negocio-direccion">
-						<%= offer.business.address %>
-					</p>
-				</div>
-			</div>
-
-			<img src="" alt="" class="oferta-category">
-
-			<div class="oferta-access">
-				<a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
-				<div class="oferta-titulo">
-					<h2>
-						<%= offer.name %>
-					</h2>
-					<p>
-						<%= offer.tagline %>
-					</p>
-				</div>
-			</div>
-		</article>
-	</script>
-	<!-- RECOVER -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-recover">
-		<section class="section js-section-current section-recover">
-
-			<div class="block section-registro section-recuperar">
-				<div class="block block-content-area">
-					<img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
-
-					<form id="form-recover" action="#" class="registro-tradicional">
-						<h3 class="titulo-line"><span>Recupera tu contraseña</span></h3>
-						<div class="form-fields">
-							<div class="form-group">
-								<input name="email" id="email" data-validate="email" type="email" class="input-block form-control" placeholder="Introduce tu email">
-							</div>
-						</div>
-						<div class="form-actions">
-							<div class="row row-md row-sm">
-								<div class="col col-12 col-md-12 col-sm-12">
-									<button class="button button-primary button-ellipsis">RECUPERAR CONTRASEÑA</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="block block-sticky-footer">
-					<a href="#!/app">Iniciar sesión</a>
-				</div>
-			</div>
-		</section>
-	</script>
-	<!-- REGISTER -->
-	<!-- ####################################################################################### -->
-
-	<script type="text/template" id="section-register">
-		<section class="section js-section-current section-registro">
-
-			<div class="block block-registro">
-				<div class="block block-content-area">
-					<img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
-					<div class="registro-facebook">
-						<a href="#" class="button button-block button-facebook"><i class="fa fa-facebook fa-fw"></i> Regístrate con Facebook</a>
-					</div>
-
-					<form id="form-registro" action="#" class="registro-tradicional">
-						<h3 class="titulo-line"><span>O regístrate de manera tradicional</span></h3>
-						<div class="form-fields">
-							<div class="form-group">
-								<input name="name" id="nombre" type="text" class="input-block form-control" data-validate="required" placeholder="Nombre Completo">
-							</div>
-							<div class="form-group">
-								<input name="email" id="email" type="email" class="input-block form-control" data-validate="email" placeholder="Correo Electrónico">
-							</div>
-							<div class="row row-md row-sm row-5">
-								<div class="col col-6 col-md-6 col-sm-6">
-									<div class="form-group">
-										<input name="metadata[dob]" id="fecha_nacimiento" type="text" class="input-block form-control" data-validate="required" placeholder="Fecha de nacimiento">
-									</div>
-								</div>
-								<div class="col col-6 col-md-6 col-sm-6">
-									<div class="form-group">
-										<select name="metadata[gender]" id="genero" class="input-block form-control" data-validate="required">
+        </nav>
+    </script>
+    <script type="text/template" id="partial-header"></script>
+    <script type="text/template" id="partial-menu">
+        <div class="menu-wrapper">
+            <img class="logo img-responsive" src="assets/images/logo-menu.png" alt="Todo Ofertas">
+            <ul class="menu">
+                <li><a href="/session/#!/profile">Mi Perfil</a></li>
+                <!--<li><a href="#">Notificaciones</a></li>-->
+                <li><a href="#">Historial de Compras</a></li>
+                <li><a href="http://www.todoofertasapp.com" target="_blank">Ayuda</a></li>
+                <li><a href="http://www.todoofertasapp.com" target="_blank">Contacto</a></li>
+                <li><a href="http://www.todoofertasapp.com/tos" target="_blank">Legal</a></li>
+                <li><a href="/app/#!/logout">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </script>
+
+    <!-- CATEGORIES -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-categories">
+        <section class="section section-logged js-section-current section-categorias">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>Categorías</h2>
+            </div>
+            <div class="block block-content-area">
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-categories-list">
+
+        <% _.each(categories, function(category, k) { %>
+            <article class="category animable">
+                <a href="#!/session/category/<%= category.slug %>"></a>
+                <div class="category-content">
+                    <img class="category-icon img-responsive" src="<%= constants.siteUrl + '/assets/images/categories/' + category.icon %>" alt="<%= category.name %>">
+                    <h3 class="category-bame">
+                        <%= category.name %>
+                    </h3>
+                </div>
+            </article>
+            <% }) %>
+
+    </script>
+    <!-- SINGLE OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-category">
+        <section class="section section-logged js-section-current section-category">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <a class="js-filtros" href="#"><img src="assets/images/menu-controls-icon.svg" alt="Filtrar"></a>
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>
+                    <!-- -->
+                </h2>
+            </div>
+            <div class="block block-content-area">
+
+                <div class="category-filtros">
+                    <ul class="filtros-list">
+                        <li><a href="#"><i class="fa fa-square"></i> Cabello</a></li>
+                    </ul>
+
+                    <div class="filtros-actions">
+                        <div class="margins">
+                            <div class="row row-md row-sm">
+                                <div class="col col-6 col-md-6 col-sm-6">
+                                    <a href="#" class="button button-block button-ellipsis">Borrar filtros</a>
+                                </div>
+                                <div class="col col-6 col-md-6 col-sm-6">
+                                    <a href="#" class="button button-block button-primary button-ellipsis">Filtrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-offers">
+                    <!-- -->
+                </div>
+
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-category-offers">
+
+        <% console.log(offers) ;_.each(offers, function(offer, k) { %>
+            <article class="oferta">
+                <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
+                <a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
+
+                <div class="oferta-negocio">
+                    <img class="negocio-logo" src="" alt="">
+                    <div class="negocio-info">
+                        <h2 class="negocio-nombre">
+                            <%= offer.business.name %>
+                        </h2>
+                        <p class="negocio-direccion">
+                            <%= offer.business.address %>
+                        </p>
+                    </div>
+                </div>
+
+                <img src="" alt="" class="oferta-category">
+
+                <div class="oferta-access">
+
+                    <div class="price-tag">$
+                        <%= offer.price %>
+                    </div>
+
+                    <i class="fa fa-angle-right access-icon"></i>
+
+                    <date class="oferta-fecha">
+                        <h2>Hasta</h2>
+                        <% var date = new Date(offer.end_date); console.log(date); %>
+                            <span class="fecha-dia"><%= date.getUTCDate() %></span>
+                            <span class="fecha-mes"><%= app.months[date.getUTCMonth()] %></span>
+                    </date>
+
+                    <div class="oferta-titulo">
+                        <h2>
+                            <%= offer.name %>
+                        </h2>
+                        <p>
+                            <%= offer.tagline %>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <% }) %>
+
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-gracias">
+        <section class="section section-logged js-section-current section-compra-gracias">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/icono-help.png" alt="Ayuda">
+                </div>
+                <h2>Gracias por tu compra</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <h2 class="block-title">Felicidades, has hecho una gran compra</h2>
+
+                <div class="monto">
+                    <h3>Monto Pagado</h3>
+                    <h2>$150.<sup>00 MXN</sup></h2>
+                </div>
+
+                <h2 class="block-title">Referencia</h2>
+
+                <div class="referencia">
+                    <code>EF6738D</code>
+                    <a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Instrucciones</h2>
+                    <ol>
+                        <li>Acude a <span class="nombre-negocio"></span>. <a href="#">¿Cómo llegar?</a></li>
+                        <li>Presenta la referencia de pago y haz válida tu oferta.</li>
+                    </ol>
+
+                    <h2>Tu oferta comprada</h2>
+                    <p>Tu oferta comprada se encuentra ahorita en tu historial de compras</p>
+                </div>
+
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-gracias-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-oferta">
+        <section class="section section-logged js-section-current section-compra-oferta">
+            <div class="section-title">
+                <h2>Compra Oferta</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
+
+                <h2 class="block-title">Estás a punto de comprar...</h2>
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+
+                <div class="metodo-pago">
+                    <h2>Selecciona tu método de pago</h2>
+                    <ul>
+                        <li class="pago-tarjeta"><a class="js-pago-tarjeta" href="#">Pago con tarjeta</a></li>
+                        <li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago con efectivo</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-oferta-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- LOGIN -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-login">
+        <section class="section js-section-current section-login">
+
+            <div class="block section-login">
+                <div class="block block-content-area">
+                    <form id="form-login" action="#">
+                        <img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
+                        <div class="login-facebook">
+                            <a href="#!/session/categories" class="button button-block button-facebook button-ellipsis"><i class="fa fa-facebook fa-fw"></i> Iniciar sesión con Facebook</a>
+                        </div>
+
+                        <div class="login-tradicional">
+                            <h3 class="titulo-line"><span>O INICIA SESIÓN CON TU EMAIL</span></h3>
+                            <div class="form-fields">
+                                <div class="form-group">
+                                    <input name="email" id="email" type="email" data-validate="required" class="input-block form-control" placeholder="Introduce tu email">
+                                </div>
+                                <div class="form-group">
+                                    <input name="password" id="password" type="password" data-validate="required" class="input-block form-control" placeholder="Introduce tu contraseña">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row row-md row-sm row-collapse">
+                                    <div class="col col-7 col-md-7 col-sm-7">
+                                        <a href="#!/app/recover" class="button button-link button-block button-ellipsis">Olvidé mi contraseña</a>
+                                    </div>
+                                    <div class="col col-5 col-md-5 col-sm-5">
+                                        <button class="button button-primary button-block button-ellipsis">INICIAR SESIÓN</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="block block-sticky-footer">
+                    <a href="#!/app/register">¿No tienes una cuenta? Regístrate aquí</a>
+                </div>
+            </div>
+        </section>
+    </script>
+    <!-- SINGLE OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-oferta">
+        <section class="section section-logged js-section-current section-oferta">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/icono-help.png" alt="Ayuda">
+                </div>
+                <h2>
+                    <!-- -->
+                </h2>
+            </div>
+            <div class="block block-content-area">
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+                <div class="oferta-comprar">
+                    <div class="oferta-deadline">
+                        <i class="fa fa-calendar"></i>
+                        <p></p>
+                    </div>
+                    <div class="oferta-cta">
+                        <div class="margins">
+                            <div class="row row-sm row-5">
+                                <div class="col col-3 col-sm-3">
+                                    <div class="price-tag"></div>
+                                </div>
+                                <div class="col col-9 col-sm-9">
+                                    <a href="#" class="js-compra-oferta button button-primary button-large button-block">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-oferta-single">
+
+        <article class="oferta">
+            <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
+
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <div class="oferta-content">
+            <div class="content-como-llegar">
+                <div class="margins">
+                    <a href="#" class="button button-primary button-large button-block"><i class="fa fa-fw fa-map-marker"></i> Como llegar</a>
+                </div>
+
+                <h2 class="content-title">Descripción de Oferta</h2>
+                <div class="margins">
+                    <div class="the-content">
+                        <%= offer.description %>
+                    </div>
+                </div>
+
+                <h2 class="content-title">Términos y Condiciones</h2>
+                <div class="margins">
+                    <div class="the-content">
+                        <%= offer.tos %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- PAGO CON TARJETA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-pago-tarjeta">
+        <section class="section section-logged js-section-current section-pago section-pago-tarjeta">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atrás"></a>
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/icono-help.png" alt="Ayuda">
+                </div>
+                <h2>Pago con Tarjeta</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
+
+                <h2 class="block-title">Completa el siguiente formulario</h2>
+
+                <div class="monto">
+                    <p>Monto a pagar</p>
+                    <h3 class="monto"></h3>
+                </div>
+
+                <div class="margins">
+                    <form id="payment-form" action="" method="post">
+
+                        <input type="hidden" name="token_id" id="token_id">
+                        <input type="hidden" name="use_card_points" id="use_card_points" value="false">
+
+                        <div class="form-group">
+                            <input type="text" maxlength="40" placeholder="Nombre en la tarjeta" autocomplete="off" class="input-block form-control" data-openpay-card="holder_name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" maxlength="16" placeholder="Número de tarjeta" class="input-block form-control" data-openpay-card="card_number">
+                        </div>
+                        <div class="row row-md row-sm row-5">
+                            <div class="col col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <div class="row row-md row-sm row-collapse">
+                                        <div class="col col-md-6 col-sm-6">
+                                            <input type="text" maxlength="2" placeholder="Mes" class="input-block form-control" data-openpay-card="expiration_month">
+                                        </div>
+                                        <div class="col col-md-6 col-sm-6">
+                                            <input type="text" maxlength="2" placeholder="Año" class="input-block form-control" data-openpay-card="expiration_year">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" placeholder="CVV" class="input-block form-control" autocomplete="off" data-openpay-card="cvv2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><button type="submit" href="#" class="js-pagar button button-primary button-block">Realizar pago</button></p>
+                        <p><a href="#" class="js-back button button-secondary button-block">Cambiar Método de Pago</a></p>
+                    </form>
+                </div>
+
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-pago-tarjeta-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- REGISTER -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-profile">
+        <section class="section section-logged js-section-current section-profile">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>Mi Perfil</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <form id="form-perfil" action="#">
+
+                    <h3 class="titulo-line"><span>Edita tu perfil de usuario a continuación.</span></h3>
+
+                    <div class="form-fields">
+                        <div class="form-group">
+                            <input name="name" id="nombre" value="<%= app.user.nicename %>" type="text" class="input-block form-control" data-validate="required" placeholder="Nombre Completo">
+                        </div>
+                        <div class="form-group">
+                            <input name="email" id="email" type="email" disabled value="<%= app.user.email %>" class="input-block form-control" placeholder="Correo Electrónico">
+                        </div>
+                        <div class="row row-md row-sm row-5">
+                            <div class="col col-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input name="metadata[dob]" value="<%= app.user.metas.dob %>" id="fecha_nacimiento" type="text" class="input-block form-control" data-validate="required" placeholder="Fecha de nacimiento">
+                                </div>
+                            </div>
+                            <div class="col col-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <select name="metadata[gender]" id="genero" class="input-block form-control" data-validate="required">
+									<option value="">Género</option>
+									<option value="femenino" <%= app.user.metas.gender == 'femenino'? 'selected' : '' %>>Femenino</option>
+									<option value="masculino" <%= app.user.metas.gender == 'masculino'? 'selected' : '' %>>Masculino</option>
+								</select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input name="password" id="password" type="password" maxlength="20" class="input-block form-control" placeholder="Contraseña">
+                        </div>
+                        <div class="form-group">
+                            <input id="confirmar-password" type="password" maxlength="20" class="input-block form-control" placeholder="Confirmar contraseña">
+                        </div>
+                        <div class="form-group">
+                            <input name="metadata[mobile]" value="<%= app.user.metas.mobile %>" id="movil" type="tel" class="input-block form-control" placeholder="Teléfono Móvil" data-validate="required">
+                        </div>
+                    </div>
+                    <div class="form-actions terminos">
+                        <div class="row row-md row-sm">
+                            <div class="col col-6 col-md-6 col-sm-6"></div>
+                            <div class="col col-6 col-md-6 col-sm-6">
+                                <button type="submit" class="button button-primary button-block button-ellipsis">ACTUALIZAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </script>
+    <!-- RECOVER -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-recover">
+        <section class="section js-section-current section-recover">
+
+            <div class="block section-registro section-recuperar">
+                <div class="block block-content-area">
+                    <img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
+
+                    <form id="form-recover" action="#" class="registro-tradicional">
+                        <h3 class="titulo-line"><span>Recupera tu contraseña</span></h3>
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <input name="email" id="email" data-validate="email" type="email" class="input-block form-control" placeholder="Introduce tu email">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row row-md row-sm">
+                                <div class="col col-12 col-md-12 col-sm-12">
+                                    <button class="button button-primary button-ellipsis">RECUPERAR CONTRASEÑA</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="block block-sticky-footer">
+                    <a href="#!/app">Iniciar sesión</a>
+                </div>
+            </div>
+        </section>
+    </script>
+    <!-- REGISTER -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-register">
+        <section class="section js-section-current section-registro">
+
+            <div class="block block-registro">
+                <div class="block block-content-area">
+                    <img class="img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
+                    <div class="registro-facebook">
+                        <a href="#" class="button button-block button-facebook"><i class="fa fa-facebook fa-fw"></i> Regístrate con Facebook</a>
+                    </div>
+
+                    <form id="form-registro" action="#" class="registro-tradicional">
+                        <h3 class="titulo-line"><span>O regístrate de manera tradicional</span></h3>
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <input name="name" id="nombre" type="text" class="input-block form-control" data-validate="required" placeholder="Nombre Completo">
+                            </div>
+                            <div class="form-group">
+                                <input name="email" id="email" type="email" class="input-block form-control" data-validate="email" placeholder="Correo Electrónico">
+                            </div>
+                            <div class="row row-md row-sm row-5">
+                                <div class="col col-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input name="metadata[dob]" id="fecha_nacimiento" type="text" class="input-block form-control" data-validate="required" placeholder="Fecha de nacimiento">
+                                    </div>
+                                </div>
+                                <div class="col col-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <select name="metadata[gender]" id="genero" class="input-block form-control" data-validate="required">
 										<option value="">Género</option>
 										<option value="femenino">Femenino</option>
 										<option value="masculino">Masculino</option>
 									</select>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<input name="password" id="password" type="password" maxlength="20" class="input-block form-control" placeholder="Contraseña" data-validate="required">
-							</div>
-							<div class="form-group">
-								<input id="confirmar-password" type="password" maxlength="20" class="input-block form-control" placeholder="Confirmar contraseña" data-validate="equal" data-param="input[name=password]">
-							</div>
-							<div class="form-group">
-								<input name="metadata[mobile]" id="movil" type="tel" class="input-block form-control" placeholder="Teléfono Móvil" data-validate="required">
-							</div>
-						</div>
-						<div class="form-actions terminos">
-							<div class="form-group">
-								<label><input type="checkbox" name="terminos" id="terminos" data-validate="required"> Acepto los términos y condiciones</label>
-							</div>
-							<div class="row row-md row-sm">
-								<div class="col col-6 col-md-6 col-sm-6"></div>
-								<div class="col col-6 col-md-6 col-sm-6">
-									<button type="submit" class="button button-primary button-block button-ellipsis">REGISTRARME</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="block block-sticky-footer">
-					<a href="#!/">¿Ya tienes una cuenta? Inicia sesión aquí</a>
-				</div>
-			</div>
-		</section>
-	</script>
-	<!-- CAMBIAR ZONA -->
-	<!-- ####################################################################################### -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input name="password" id="password" type="password" maxlength="20" class="input-block form-control" placeholder="Contraseña" data-validate="required">
+                            </div>
+                            <div class="form-group">
+                                <input id="confirmar-password" type="password" maxlength="20" class="input-block form-control" placeholder="Confirmar contraseña" data-validate="equal" data-param="input[name=password]">
+                            </div>
+                            <div class="form-group">
+                                <input name="metadata[mobile]" id="movil" type="tel" class="input-block form-control" placeholder="Teléfono Móvil" data-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-actions terminos">
+                            <div class="form-group">
+                                <label><input type="checkbox" name="terminos" id="terminos" data-validate="required"> Acepto los términos y condiciones</label>
+                            </div>
+                            <div class="row row-md row-sm">
+                                <div class="col col-6 col-md-6 col-sm-6"></div>
+                                <div class="col col-6 col-md-6 col-sm-6">
+                                    <button type="submit" class="button button-primary button-block button-ellipsis">REGISTRARME</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="block block-sticky-footer">
+                    <a href="#!/">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+                </div>
+            </div>
+        </section>
+    </script>
+    <!-- CAMBIAR ZONA -->
+    <!-- ####################################################################################### -->
 
-	<script type="text/template" id="section-zones">
-		<section class="section section-logged js-section-current section-zones">
-			<div class="section-title">
-				<h2>Cambiar de Zona</h2>
-			</div>
-			<div class="block block-content-area">
+    <script type="text/template" id="section-zones">
+        <section class="section section-logged js-section-current section-zones">
+            <div class="section-title">
+                <h2>Cambiar de Zona</h2>
+            </div>
+            <div class="block block-content-area">
 
-				<img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
+                <img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
 
-				<nav class="block-list zonas">
-					<ul class="menu">
-					</ul>
-				</nav>
-			</div>
-		</section>
-	</script>
+                <nav class="block-list zonas">
+                    <ul class="menu">
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </script>
 
-	<script type="text/template" id="section-zone-list">
-		<% _.each(zones, function(zone, k) { %>
-			<li class="menu-item">
-				<a href="#" data-zid="<%= zone.id %>">
-					<%= zone.name %> <i class="fa fa-angle-right"></i></a>
-			</li>
-			<% }) %>
-	</script>
+    <script type="text/template" id="section-zone-list">
+        <% _.each(zones, function(zone, k) { %>
+            <li class="menu-item">
+                <a href="#" data-zid="<%= zone.id %>">
+                    <%= zone.name %> <i class="fa fa-angle-right"></i></a>
+            </li>
+            <% }) %>
+    </script>
 
-	<!-- ####################################################################################### -->
+    <!-- ####################################################################################### -->
 
+    <script type="text/javascript" src="assets/scripts/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/scripts/class.js"></script>
 
-	<script type="text/javascript" src="assets/scripts/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+    <script type="text/javascript" src="assets/scripts/faceGap-1.0.js"></script>
 
-	<script type="text/javascript" src="assets/scripts/underscore-min.js"></script>
-	<script type="text/javascript" src="assets/scripts/class.js"></script>
+    <script type="text/javascript" src="assets/scripts/ladybug2.js"></script>
+    <script type="text/javascript" src="assets/scripts/ladybug2.scarlet.js"></script>
 
-	<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
-	<script type="text/javascript" src="assets/scripts/faceGap-1.0.js"></script>
+    <script type="text/javascript" src="assets/scripts/velocity.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/velocity.ui.min.js"></script>
 
-	<script type="text/javascript" src="assets/scripts/ladybug2.js"></script>
-	<script type="text/javascript" src="assets/scripts/ladybug2.scarlet.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.valid4tor.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.form.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.alert.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/js.cookie.js"></script>
 
-	<script type="text/javascript" src="assets/scripts/velocity.min.js"></script>
-	<script type="text/javascript" src="assets/scripts/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/plugins.js"></script>
+    <script type="text/javascript" src="assets/scripts/site.js"></script>
 
-	<script type="text/javascript" src="assets/scripts/jquery.valid4tor.min.js"></script>
-	<script type="text/javascript" src="assets/scripts/jquery.form.min.js"></script>
-	<script type="text/javascript" src="assets/scripts/jquery.alert.min.js"></script>
-	<script type="text/javascript" src="assets/scripts/js.cookie.js"></script>
-
-	<script type="text/javascript" src="assets/scripts/plugins.js"></script>
-
-	<script type="text/javascript" src="cordova.js"></script>
-	<script type="text/javascript" src="facebookConnectPlugin.js"></script>
-	<script type="text/javascript" src="assets/scripts/site.js"></script>
-
-	<script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-	<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 </body>
 
 </html>
