@@ -275,16 +275,17 @@ LoginView = Ladybug.Scarlet.View.extend({
 				['email', 'public_profile'],
 				function(success) {
 
-					console.log();
-					if (arguments.length) {
-						alert(arguments);
-						for(var i = 0; i < arguments.length; i++) {
+					facebookConnectPlugin.api(
+						'/me?fields=email,name,picture',
+						['public_profile', 'email'],
+						function(userData) {
+							alert(JSON.stringify(userData));
+						},function(error){
+							//API error callback
+							alert(JSON.stringify(error));
+						});
 
-							alert('Argumento ' + i + ': ' + arguments[i]);
-						}
-					}
-
-					app.ajaxCall({
+					/*app.ajaxCall({
 						endpoint: 'users/sign-up',
 						type: 'post',
 						data: success,
@@ -295,11 +296,12 @@ LoginView = Ladybug.Scarlet.View.extend({
 
 							app.router.navigate('#!/categories');
 						}
-					});
+					});*/
 				},
-				function() {
+				function(error) {
 
-
+					//authenication error callback
+					alert(JSON.stringify(error));
 				}
 			);
 		});
