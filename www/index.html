@@ -26,7 +26,7 @@
 
     <script type="text/template" id="partial-footer">
         <nav class="app-menu">
-            <a class="menu-item" href="#!/session/categories">
+            <a class="menu-item menu-item-categories" href="#!/session/categories">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<g>
 					<path d="M49.9,181.6L2.5,146.9c-0.9-0.7-2.2-0.7-3.1,0l-47.4,34.7c-1.2,0.8-1.4,2.5-0.6,3.6c0.8,1.2,2.5,1.4,3.6,0.6L1,152.2,l45.9,33.6c0.5,0.3,1,0.5,1.5,0.5c0.8,0,1.6-0.4,2.1-1.1C51.3,184.1,51.1,182.5,49.9,181.6z"/>
@@ -35,7 +35,7 @@
 			</svg>
 			<span>Categorías</span>
 		</a>
-            <a class="menu-item" href="#!/session/buscar">
+            <a class="menu-item menu-item-search" href="#!/session/buscar">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon2-st0{clip-path:url(#ICON2_SVGID_1_);}</style>
 				<g><g>
@@ -46,7 +46,7 @@
 			</svg>
 			<span>Buscar</span>
 		</a>
-            <a class="menu-item" href="#!/session/favorites">
+            <a class="menu-item menu-item-favorites" href="#!/session/favorites">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon3-st0{clip-path:url(#ICON3_SVGID_1_);}</style>
 				<g><g>
@@ -57,7 +57,7 @@
 			</svg>
 			<span>Favoritos</span>
 		</a>
-            <a class="menu-item" href="#!/session/zones">
+            <a class="menu-item menu-item-zone" href="#!/session/zones">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon4-st0{clip-path:url(#ICON4_SVGID_2_);}</style>
 				<g>
@@ -71,7 +71,7 @@
 			</svg>
 			<span>Zona</span>
 		</a>
-            <a class="menu-item js-open-app-nav-menu" href="#">
+            <a class="menu-item menu-item-more js-open-app-nav-menu" href="#">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<g>
 					<path d="M-41.6,168.4h85.1c1.9,0,3.5-1.6,3.5-3.5c0-1.9-1.6-3.5-3.5-3.5h-85.1c-1.9,0-3.5,1.6-3.5,3.5C-45,166.9-43.5,168.4-41.6,168.4L-41.6,168.4z M-41.6,168.4"/>
@@ -363,6 +363,85 @@
                 </div>
             </div>
         </article>
+    </script>
+    <!-- FAVORITES -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-favorites">
+        <section class="section section-logged js-section-current section-favorites">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>Favorites</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <div class="favorites-offers">
+                    <!-- -->
+                </div>
+
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-favorites-empty">
+        <div class="empty">
+            <h2>No tienes favoritos</h2>
+        </div>
+    </script>
+
+    <script type="text/template" id="section-favorites-offers">
+
+        <% _.each(offers, function(offer, k) { console.log(offer); %>
+            <article class="oferta">
+                <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
+                <a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
+
+                <div class="oferta-negocio">
+                    <img class="negocio-logo" src="" alt="">
+                    <div class="negocio-info">
+                        <h2 class="negocio-nombre">
+                            <%= offer.business.name %>
+                        </h2>
+                        <p class="negocio-direccion">
+                            <%= offer.business.address %>
+                        </p>
+                    </div>
+                </div>
+
+                <img src="" alt="" class="oferta-category">
+
+                <div class="oferta-access">
+
+                    <div class="price-tag">$
+                        <%= offer.price %>
+                    </div>
+
+                    <i class="fa fa-angle-right access-icon"></i>
+
+                    <date class="oferta-fecha">
+                        <h2>Hasta</h2>
+                        <% var date = new Date(offer.end_date); console.log(date); %>
+                            <span class="fecha-dia"><%= date.getUTCDate() %></span>
+                            <span class="fecha-mes"><%= app.months[date.getUTCMonth()] %></span>
+                    </date>
+
+                    <div class="oferta-titulo">
+                        <h2>
+                            <%= offer.name %>
+                        </h2>
+                        <p>
+                            <%= offer.tagline %>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <% }) %>
+
     </script>
     <!-- LOGIN -->
     <!-- ####################################################################################### -->
@@ -772,6 +851,44 @@
     <!-- CAMBIAR ZONA -->
     <!-- ####################################################################################### -->
 
+    <script type="text/template" id="section-zone">
+        <section class="section section-logged js-section-current section-zone">
+            <div class="block block-content">
+                <img class="logo img-responsive" src="assets/images/logo-todo-ofertas.png" alt="Todo Ofertas">
+
+                <img class="zone-marker img-resposnive" src="assets/images/zone-marker.png" alt="">
+                <div class="bienvenida">
+                    <h2 class="bienvenido">¡Bienvenido
+                        <%= app.user.nicename %>!</h2>
+                    <p>Antes de continuar, cuéntanos cuál es la zona donde deseas buscar ofertas.</p>
+                </div>
+
+                <form id="form-zone">
+                    <div class="form-fields">
+                        <div class="form-group">
+                            <select name="zone_id" id="" class="input-block form-control" data-validate="required">
+							<option value="">Selecciona tu zona</option>
+						</select>
+                            <div class="help-block">Recuerda que podrás cambiar tu zona en cualquier momento</div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row row-md row-sm row-collapse">
+                            <div class="col col-7 col-md-7 col-sm-7"></div>
+                            <div class="col col-5 col-md-5 col-sm-5">
+                                <button class="button button-primary button-block button-ellipsis">CONTINUAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </script>
+    <!-- CAMBIAR ZONA -->
+    <!-- ####################################################################################### -->
+
     <script type="text/template" id="section-zones">
         <section class="section section-logged js-section-current section-zones">
             <div class="section-title">
@@ -817,6 +934,9 @@
     <script type="text/javascript" src="assets/scripts/jquery.form.min.js"></script>
     <script type="text/javascript" src="assets/scripts/jquery.alert.min.js"></script>
     <script type="text/javascript" src="assets/scripts/js.cookie.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="facebookConnectPlugin.js"></script>
 
     <script type="text/javascript" src="assets/scripts/plugins.js"></script>
     <script type="text/javascript" src="assets/scripts/site.js"></script>
