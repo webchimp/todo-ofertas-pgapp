@@ -275,6 +275,8 @@ LoginView = Ladybug.Scarlet.View.extend({
 				['email', 'public_profile'],
 				function(success) {
 
+					alert(JSON.stringify(success));
+
 					facebookConnectPlugin.api(
 						'/me?fields=email,name,picture',
 						['public_profile', 'email'],
