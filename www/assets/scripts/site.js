@@ -53,7 +53,8 @@ App = Ladybug.Scarlet.Application.extend({
 		console.log(err);
 		var strings = {
 			ERR_INVALID_CREDENTIALS: '¡Ups! El nombre de usuario o contraseña es incorrecto',
-			ERR_NON_EXISTENT_USER: 'El correo electronico que ingresaste es incorrecto'
+			ERR_EMAIL_DOESNT_EXIST: 'El correo electronico que ingresaste es incorrecto',
+			ERR_USER_DOESNT_EXIST: 'El usuario no existe, favor de registrarse'
 		},
 		ret = err;
 		if ( typeof strings[err] !== 'undefined' ) {
@@ -276,18 +277,9 @@ LoginView = Ladybug.Scarlet.View.extend({
 				function(success) {
 
 					alert(JSON.stringify(success));
+					var facebookData = { fbid: success.authResponse.userId };
 
-					facebookConnectPlugin.api(
-						'/me?fields=email,name,picture',
-						['public_profile', 'email'],
-						function(userData) {
-							alert(JSON.stringify(userData));
-						},function(error){
-							//API error callback
-							alert(JSON.stringify(error));
-						});
-
-					/*app.ajaxCall({
+					app.ajaxCall({
 						endpoint: 'users/sign-in',
 						type: 'post',
 						data: facebookData,
@@ -309,7 +301,7 @@ LoginView = Ladybug.Scarlet.View.extend({
 								app.router.navigate('#!/session/zone');
 							}
 						}
-					});*/
+					});
 				},
 				function(error) {
 
@@ -485,6 +477,62 @@ RegisterView = Ladybug.Scarlet.View.extend({
 		});
 
 		var form = $('#form-registro');
+
+		$('.button-facebook').on('click', function(event) {
+			event.preventDefault();
+			facebookConnectPlugin.login(
+				['email', 'public_profile'],
+				function(success) {
+
+					alert(JSON.stringify(success));
+					var facebookData = { fbid: success.authResponse.userId };
+
+					facebookConnectPlugin.api(
+						'/me?fields=email,name,picture',
+						['public_profile', 'email'],
+						function(userData) {
+
+							facebookData.email = userData.email;
+							facebookData.name = userData.name;
+
+							app.ajaxCall({
+								endpoint: 'users/sign-up',
+								type: 'post',
+								data: facebookData,
+								error: function(message) {
+									$.alert(message);
+								},
+								success: function(response) {
+
+									Cookies.set('user', response.user);
+									Cookies.set('bearer', response.bearer);
+									window.localStorage.setItem('user', JSON.stringify(response.user));
+									window.localStorage.setItem('bearer', response.bearer);
+									app.user = response.user;
+									app.bearer = response.bearer;
+
+									if(typeof app.user.metas.zone_id !== 'undefined') {
+										app.router.navigate('#!/session/categories');
+									} else {
+										app.router.navigate('#!/session/zone');
+									}
+								}
+							});*/
+
+						},function(error){
+							//API error callback
+							//alert(JSON.stringify(error));
+							$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
+
+						});
+				},
+				function(error) {
+
+					//authenication error callback
+					alert(JSON.stringify(error));
+				}
+			);
+		});
 
 		form.on('submit', function(event) {
 			event.preventDefault();
