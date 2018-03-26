@@ -288,15 +288,26 @@ LoginView = Ladybug.Scarlet.View.extend({
 						});
 
 					/*app.ajaxCall({
-						endpoint: 'users/sign-up',
+						endpoint: 'users/sign-in',
 						type: 'post',
-						data: success,
+						data: facebookData,
 						error: function(message) {
 							$.alert(message);
 						},
 						success: function(response) {
 
-							app.router.navigate('#!/categories');
+							Cookies.set('user', response.user);
+							Cookies.set('bearer', response.bearer);
+							window.localStorage.setItem('user', JSON.stringify(response.user));
+							window.localStorage.setItem('bearer', response.bearer);
+							app.user = response.user;
+							app.bearer = response.bearer;
+
+							if(typeof app.user.metas.zone_id !== 'undefined') {
+								app.router.navigate('#!/session/categories');
+							} else {
+								app.router.navigate('#!/session/zone');
+							}
 						}
 					});*/
 				},
@@ -346,12 +357,8 @@ LoginView = Ladybug.Scarlet.View.extend({
 
 								Cookies.set('user', response.user);
 								Cookies.set('bearer', response.bearer);
-
-								console.log(response.user);
-
 								window.localStorage.setItem('user', JSON.stringify(response.user));
 								window.localStorage.setItem('bearer', response.bearer);
-
 								app.user = response.user;
 								app.bearer = response.bearer;
 
