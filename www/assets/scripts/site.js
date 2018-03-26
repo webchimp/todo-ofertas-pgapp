@@ -276,36 +276,52 @@ LoginView = Ladybug.Scarlet.View.extend({
 				['email', 'public_profile'],
 				function(success) {
 
-					var facebookData = { fbid: success.authResponse.userId };
+					facebookConnectPlugin.api(
+						'/me?fields=email,name,picture',
+						['public_profile', 'email'],
+						function(userData) {
 
-					app.ajaxCall({
-						endpoint: 'users/sign-in',
-						type: 'post',
-						data: facebookData,
-						error: function(message) {
-							$.alert(message);
-						},
-						success: function(response) {
+							alert(JSON.stringify(userData));
 
-							Cookies.set('user', response.user);
-							Cookies.set('bearer', response.bearer);
-							window.localStorage.setItem('user', JSON.stringify(response.user));
-							window.localStorage.setItem('bearer', response.bearer);
-							app.user = response.user;
-							app.bearer = response.bearer;
+							var facebookData = {};
+							facebookData.fbid = userData.userId;
 
-							if(typeof app.user.metas.zone_id !== 'undefined') {
-								app.router.navigate('#!/session/categories');
-							} else {
-								app.router.navigate('#!/session/zone');
-							}
+							app.ajaxCall({
+								endpoint: 'users/sign-in',
+								type: 'post',
+								data: facebookData,
+								error: function(message) {
+									$.alert(message);
+								},
+								success: function(response) {
+
+									Cookies.set('user', response.user);
+									Cookies.set('bearer', response.bearer);
+									window.localStorage.setItem('user', JSON.stringify(response.user));
+									window.localStorage.setItem('bearer', response.bearer);
+									app.user = response.user;
+									app.bearer = response.bearer;
+
+									if(typeof app.user.metas.zone_id !== 'undefined') {
+										app.router.navigate('#!/session/categories');
+									} else {
+										app.router.navigate('#!/session/zone');
+									}
+								}
+							});
+
+						},function(error){
+							//API error callback
+							//alert(JSON.stringify(error));
+							$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
+
 						}
-					});
+					);
 				},
 				function(error) {
 
 					//authenication error callback
-					alert('Hubo un problema conectándose con Facebook, por favor intente más tarde.');
+					alert(JSON.stringify(error));
 				}
 			);
 		});
@@ -482,14 +498,15 @@ RegisterView = Ladybug.Scarlet.View.extend({
 			facebookConnectPlugin.login(
 				['email', 'public_profile'],
 				function(success) {
-
-					var facebookData = { fbid: success.authResponse.userId };
-
 					facebookConnectPlugin.api(
 						'/me?fields=email,name,picture',
 						['public_profile', 'email'],
 						function(userData) {
 
+							alert(JSON.stringify(userData));
+
+							var facebookData = {};
+							facebookData.fbid = userData.userId;
 							facebookData.email = userData.email;
 							facebookData.name = userData.name;
 
@@ -516,11 +533,15 @@ RegisterView = Ladybug.Scarlet.View.extend({
 									}
 								}
 							});
+
 						},function(error){
+							//API error callback
 							$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
-						});
+						}
+					);
 				},
 				function(error) {
+					//authenication error callback
 					$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
 				}
 			);
