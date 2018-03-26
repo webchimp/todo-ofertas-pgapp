@@ -284,7 +284,7 @@ LoginView = Ladybug.Scarlet.View.extend({
 							alert(JSON.stringify(userData));
 
 							var facebookData = {};
-							facebookData.fbid = userData.userId;
+							facebookData.fbid = userData.id;
 
 							app.ajaxCall({
 								endpoint: 'users/sign-in',
@@ -506,7 +506,7 @@ RegisterView = Ladybug.Scarlet.View.extend({
 							alert(JSON.stringify(userData));
 
 							var facebookData = {};
-							facebookData.fbid = userData.userId;
+							facebookData.fbid = userData.id;
 							facebookData.email = userData.email;
 							facebookData.name = userData.name;
 
