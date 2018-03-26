@@ -276,7 +276,6 @@ LoginView = Ladybug.Scarlet.View.extend({
 				['email', 'public_profile'],
 				function(success) {
 
-					alert(JSON.stringify(success));
 					var facebookData = { fbid: success.authResponse.userId };
 
 					app.ajaxCall({
@@ -306,7 +305,7 @@ LoginView = Ladybug.Scarlet.View.extend({
 				function(error) {
 
 					//authenication error callback
-					alert(JSON.stringify(error));
+					alert('Hubo un problema conectándose con Facebook, por favor intente más tarde.');
 				}
 			);
 		});
@@ -484,7 +483,6 @@ RegisterView = Ladybug.Scarlet.View.extend({
 				['email', 'public_profile'],
 				function(success) {
 
-					alert(JSON.stringify(success));
 					var facebookData = { fbid: success.authResponse.userId };
 
 					facebookConnectPlugin.api(
@@ -517,19 +515,13 @@ RegisterView = Ladybug.Scarlet.View.extend({
 										app.router.navigate('#!/session/zone');
 									}
 								}
-							});*/
-
+							});
 						},function(error){
-							//API error callback
-							//alert(JSON.stringify(error));
 							$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
-
 						});
 				},
 				function(error) {
-
-					//authenication error callback
-					alert(JSON.stringify(error));
+					$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
 				}
 			);
 		});

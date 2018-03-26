@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.webchimp.TodoOfertas" version="1.4.9.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.webchimp.TodoOfertas" version="1.4.9.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>TodoOfertas</name>
     <description>
-        Aplicación para la empresa Todo Ofertas.
-    </description>
+		Aplicación para la empresa Todo Ofertas.
+	</description>
     <author email="soporte@chimp.mx" href="http://elchangodelaweb.com">
-        WebChimp Team
-    </author>
+		WebChimp Team
+	</author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="15" />
@@ -50,9 +50,6 @@
         <icon height="58" platform="ios" src="www/assets/resources/icon/ios/icon-small@2x.png" width="58" />
         <icon height="87" platform="ios" src="www/assets/resources/icon/ios/icon-small@3x.png" width="87" />
         <icon height="1024" platform="ios" src="www/assets/resources/icon/ios/icon-1024.png" width="1024" />
-
-
-
     </platform>
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -72,7 +69,7 @@
         <param name="APP_ID" value="170045566912861" />
         <param name="APP_NAME" value="TodoOfertas" />
     </gap:plugin>
-   <plugin name="cordova-plugin-battery-status" spec="1.1.2" />
+    <plugin name="cordova-plugin-battery-status" spec="1.1.2" />
     <plugin name="cordova-plugin-console" spec="1.0.7" />
     <plugin name="cordova-plugin-contacts" spec="2.0.1" />
     <plugin name="cordova-plugin-device" spec="1.1.7" />
