@@ -281,7 +281,7 @@ LoginView = Ladybug.Scarlet.View.extend({
 						['public_profile', 'email'],
 						function(userData) {
 
-							alert(JSON.stringify(userData));
+							//alert(JSON.stringify(userData));
 
 							var facebookData = {};
 							facebookData.fbid = userData.id;
@@ -503,7 +503,7 @@ RegisterView = Ladybug.Scarlet.View.extend({
 						['public_profile', 'email'],
 						function(userData) {
 
-							alert(JSON.stringify(userData));
+							//alert(JSON.stringify(userData));
 
 							var facebookData = {};
 							facebookData.fbid = userData.id;
