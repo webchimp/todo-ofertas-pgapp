@@ -35,7 +35,7 @@
 			</svg>
 			<span>Categorías</span>
 		</a>
-            <a class="menu-item menu-item-search" href="#!/session/buscar">
+            <a class="menu-item menu-item-search" href="#!/session/search">
 			<svg class="menu-icon" viewBox="-49 141 100 100">
 				<style type="text/css">.icon2-st0{clip-path:url(#ICON2_SVGID_1_);}</style>
 				<g><g>
@@ -90,12 +90,44 @@
             <ul class="menu">
                 <li><a href="/session/#!/profile">Mi Perfil</a></li>
                 <!--<li><a href="#">Notificaciones</a></li>-->
-                <li><a href="#">Historial de Compras</a></li>
-                <li><a href="http://www.todoofertasapp.com" target="_blank">Ayuda</a></li>
-                <li><a href="http://www.todoofertasapp.com" target="_blank">Contacto</a></li>
+                <li><a href="/session/#!/purchases">Historial de Compras</a></li>
+                <li><a href="http://www.todoofertasapp.com/help" target="_blank">Ayuda</a></li>
+                <li><a href="http://www.todoofertasapp.com/contact" target="_blank">Contacto</a></li>
                 <li><a href="http://www.todoofertasapp.com/tos" target="_blank">Legal</a></li>
                 <li><a href="/app/#!/logout">Cerrar Sesión</a></li>
             </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="partial-splash">
+        <div class="splash-wrapper">
+
+            <p class="splash-disclaimer">Este anuncio terminará en <span class="splash-timer"><%= splash.duration %></span></p>
+            <article class="splash">
+                <a href="<%= splash.link %>" target="_blank"><img class="img-responsive" src="<%= splash.media[0].full %>" alt=""></a>
+
+                <div class="splash-buttons-wrapper">
+                    <div class="splash-buttons">
+                        <a href="#" class="button button-primary button-block splash-cerrar">Cerrar</a>
+                        <a href="<%= splash.link %>" target="_blank" class="button button-primary button-block splash-mas">Conocer más</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </script>
+
+    <script type="text/template" id="partial-help">
+        <div class="help-wrapper">
+
+            <div class="help-cycle">
+                <article class="step step1"></article>
+                <article class="step step2"></article>
+                <article class="step step3"></article>
+                <article class="step step4"></article>
+                <article class="step step5"></article>
+            </div>
+
         </div>
     </script>
 
@@ -115,6 +147,8 @@
             </div>
             <div class="block block-content-area">
             </div>
+
+            <div class="splash-categories splash-area"></div>
         </section>
     </script>
 
@@ -122,7 +156,7 @@
 
         <% _.each(categories, function(category, k) { %>
             <article class="category animable">
-                <a href="#!/session/category/<%= category.slug %>"></a>
+                <a href="#!/session/category/<%= category.id %>"></a>
                 <div class="category-content">
                     <img class="category-icon img-responsive" src="<%= constants.siteUrl + '/assets/images/categories/' + category.icon %>" alt="<%= category.name %>">
                     <h3 class="category-bame">
@@ -173,8 +207,9 @@
                 <div class="category-offers">
                     <!-- -->
                 </div>
-
             </div>
+
+            <div class="splash-category splash-area"></div>
         </section>
     </script>
 
@@ -239,18 +274,18 @@
                 <div class="title-icon title-icon-right">
                     <img src="assets/images/icono-help.png" alt="Ayuda">
                 </div>
-                <h2>Gracias por tu compra</h2>
+                <h2>COMPRA EXITOSA</h2>
             </div>
             <div class="block block-content-area">
 
-                <h2 class="block-title">Felicidades, has hecho una gran compra</h2>
+                <h2 class="block-title">¡Gracias por tu compra!</h2>
 
                 <div class="monto">
                     <h3>Monto Pagado</h3>
                     <h2>$150.<sup>00 MXN</sup></h2>
                 </div>
 
-                <h2 class="block-title">Referencia</h2>
+                <h2 class="block-title">Código de Validación</h2>
 
                 <div class="referencia">
                     <code>EF6738D</code>
@@ -326,7 +361,8 @@
                     <h2>Selecciona tu método de pago</h2>
                     <ul>
                         <li class="pago-tarjeta"><a class="js-pago-tarjeta" href="#">Pago con tarjeta</a></li>
-                        <li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago con efectivo</a></li>
+                        <li class="pago-oxxo"><a class="js-pago-oxxo" href="#">Pago en OXXO</a></li>
+                        <li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago en efectivo</a></li>
                     </ul>
                 </div>
 
@@ -376,7 +412,7 @@
                 <div class="title-icon title-icon-right">
                     <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
-                <h2>Favorites</h2>
+                <h2>Favoritos</h2>
             </div>
             <div class="block block-content-area">
 
@@ -616,7 +652,7 @@
                         <input type="hidden" name="use_card_points" id="use_card_points" value="false">
 
                         <div class="form-group">
-                            <input type="text" maxlength="40" placeholder="Nombre en la tarjeta" autocomplete="off" class="input-block form-control" data-openpay-card="holder_name">
+                            <input type="text" maxlength="40" placeholder="Nombre que aparece en la tarjeta" autocomplete="off" class="input-block form-control" data-openpay-card="holder_name">
                         </div>
                         <div class="form-group">
                             <input type="text" maxlength="16" placeholder="Número de tarjeta" class="input-block form-control" data-openpay-card="card_number">
@@ -690,7 +726,7 @@
         <section class="section section-logged js-section-current section-profile">
             <div class="section-title">
                 <div class="title-icon title-icon-left">
-                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                    <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
                 </div>
                 <div class="title-icon title-icon-right">
                     <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
@@ -713,12 +749,12 @@
                         <div class="row row-md row-sm row-5">
                             <div class="col col-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <input name="metadata[dob]" value="<%= app.user.metas.dob %>" id="fecha_nacimiento" type="text" class="input-block form-control" data-validate="required" placeholder="Fecha de nacimiento">
+                                    <input disabled name="metadata[dob]" value="<%= app.user.metas.dob %>" id="fecha_nacimiento" type="text" class="input-block form-control" data-validate="required" placeholder="Fecha de nacimiento">
                                 </div>
                             </div>
                             <div class="col col-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <select name="metadata[gender]" id="genero" class="input-block form-control" data-validate="required">
+                                    <select disabled name="metadata[gender]" id="genero" class="input-block form-control" data-validate="required">
 									<option value="">Género</option>
 									<option value="femenino" <%= app.user.metas.gender == 'femenino'? 'selected' : '' %>>Femenino</option>
 									<option value="masculino" <%= app.user.metas.gender == 'masculino'? 'selected' : '' %>>Masculino</option>
@@ -848,6 +884,99 @@
             </div>
         </section>
     </script>
+    <!-- FAVORITES -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-search">
+        <section class="section section-logged js-section-current section-search">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>Buscar</h2>
+            </div>
+            <div class="block block-search">
+                <form id="form-search" action="">
+                    <div class="form-group">
+                        <div class="row row-md row-sm row-5">
+                            <div class="col col-10 col-sm-10">
+                                <input data-validate="required" name="search" type="text" class="input-block form-control" placeholder="Introduce tu búsqueda">
+                            </div>
+                            <div class="col col-2 col-sm-2">
+                                <button type="submit" class="button button-primary button-block"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="block block-content-area">
+
+                <div class="search-offers">
+                    <!-- -->
+                </div>
+
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-search-empty">
+        <div class="empty">
+            <h2>No se encontró nada bajo la búsqueda <span class="js-search-query"></span></h2>
+        </div>
+    </script>
+
+    <script type="text/template" id="section-search-offers">
+
+        <% _.each(offers, function(offer, k) { console.log(offer); %>
+            <article class="oferta">
+                <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
+                <a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
+
+                <div class="oferta-negocio">
+                    <img class="negocio-logo" src="" alt="">
+                    <div class="negocio-info">
+                        <h2 class="negocio-nombre">
+                            <%= offer.business.name %>
+                        </h2>
+                        <p class="negocio-direccion">
+                            <%= offer.business.address %>
+                        </p>
+                    </div>
+                </div>
+
+                <img src="" alt="" class="oferta-category">
+
+                <div class="oferta-access">
+
+                    <div class="price-tag">$
+                        <%= offer.price %>
+                    </div>
+
+                    <i class="fa fa-angle-right access-icon"></i>
+
+                    <date class="oferta-fecha">
+                        <h2>Hasta</h2>
+                        <% var date = new Date(offer.end_date); console.log(date); %>
+                            <span class="fecha-dia"><%= date.getUTCDate() %></span>
+                            <span class="fecha-mes"><%= app.months[date.getUTCMonth()] %></span>
+                    </date>
+
+                    <div class="oferta-titulo">
+                        <h2>
+                            <%= offer.name %>
+                        </h2>
+                        <p>
+                            <%= offer.tagline %>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <% }) %>
+
+    </script>
     <!-- CAMBIAR ZONA -->
     <!-- ####################################################################################### -->
 
@@ -922,7 +1051,6 @@
     <script type="text/javascript" src="assets/scripts/class.js"></script>
 
     <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
-    <script type="text/javascript" src="assets/scripts/faceGap-1.0.js"></script>
 
     <script type="text/javascript" src="assets/scripts/ladybug2.js"></script>
     <script type="text/javascript" src="assets/scripts/ladybug2.scarlet.js"></script>

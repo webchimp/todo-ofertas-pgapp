@@ -44,7 +44,7 @@ App = Ladybug.Scarlet.Application.extend({
 
 		obj.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-		document.addEventListener("deviceready", function() { obj.onDeviceReady(); }, false);
+		document.addEventListener('deviceready', function() { obj.onDeviceReady(); }, false);
 	},
 	checkBearer: function() {
 		return !! app.bearer;
@@ -275,19 +275,18 @@ LoginView = Ladybug.Scarlet.View.extend({
 			facebookConnectPlugin.login(
 				['email', 'public_profile'],
 				function(success) {
-
 					facebookConnectPlugin.api(
 						'/me?fields=email,name,picture',
 						['public_profile', 'email'],
 						function(userData) {
 
-							//alert(JSON.stringify(userData));
-
 							var facebookData = {};
 							facebookData.fbid = userData.id;
+							facebookData.email = userData.email;
+							facebookData.name = userData.name;
 
 							app.ajaxCall({
-								endpoint: 'users/sign-in',
+								endpoint: 'users/sign-up',
 								type: 'post',
 								data: facebookData,
 								error: function(message) {
@@ -503,8 +502,6 @@ RegisterView = Ladybug.Scarlet.View.extend({
 						['public_profile', 'email'],
 						function(userData) {
 
-							//alert(JSON.stringify(userData));
-
 							var facebookData = {};
 							facebookData.fbid = userData.id;
 							facebookData.email = userData.email;
@@ -536,13 +533,16 @@ RegisterView = Ladybug.Scarlet.View.extend({
 
 						},function(error){
 							//API error callback
+							//alert(JSON.stringify(error));
 							$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
+
 						}
 					);
 				},
 				function(error) {
+
 					//authenication error callback
-					$.alert('Hubo un error al conectarse con Facebook, favor de intentar más tarde.');
+					alert(JSON.stringify(error));
 				}
 			);
 		});
@@ -602,6 +602,7 @@ CategoriesView = Ladybug.Scarlet.View.extend({
 		var obj = this;
 		obj.templates.base = Ladybug.Utils.compileTemplate('#section-categories');
 		obj.templates.list = Ladybug.Utils.compileTemplate('#section-categories-list');
+		obj.templates.splash = Ladybug.Utils.compileTemplate('#partial-splash');
 	},
 	onRender: function() {
 		var obj = this,
@@ -620,6 +621,35 @@ CategoriesView = Ladybug.Scarlet.View.extend({
 
 		$('.app-menu .menu-item').removeClass('selected');
 		$('.menu-item-categories').addClass('selected');
+	},
+	renderSplash: function(response) {
+		var obj = this,
+			splashWrapper = $('.splash-categories');
+
+		splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
+
+		var timeLeft = response.splash.duration;
+		var splashTimer = setInterval(function() {
+
+			$('.splash-timer').text(timeLeft);
+
+			if(timeLeft <= 0) {
+
+				clearInterval(splashTimer);
+				$('.splash-disclaimer').html('');
+				$('.splash-buttons-wrapper').fadeIn();
+
+				$('.splash-cerrar').on('click', function(event) {
+					event.preventDefault();
+					splashWrapper.fadeOut(function() {
+						splashWrapper.remove();
+					});
+				});
+			}
+
+			timeLeft--;
+
+		}, 1000);
 	}
 });
 
@@ -631,6 +661,7 @@ CategoryView = Ladybug.Scarlet.View.extend({
 		var obj = this;
 		obj.templates.base = Ladybug.Utils.compileTemplate('#section-category');
 		obj.templates.list = Ladybug.Utils.compileTemplate('#section-category-offers');
+		obj.templates.splash = Ladybug.Utils.compileTemplate('#partial-splash');
 	},
 	onRender: function() {
 		var obj = this,
@@ -649,6 +680,34 @@ CategoryView = Ladybug.Scarlet.View.extend({
 
 		target.html( obj.templates.list({ offers: response.offers }) );
 		$('.oferta').velocity('transition.slideUpIn');
+	},
+	renderSplash: function(response) {
+		var obj = this,
+			splashWrapper = $('.splash-category');
+		splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
+
+		var timeLeft = response.splash.duration;
+		var splashTimer = setInterval(function() {
+
+			$('.splash-timer').text(timeLeft);
+
+			if(timeLeft <= 0) {
+
+				clearInterval(splashTimer);
+				$('.splash-disclaimer').html('');
+				$('.splash-buttons-wrapper').fadeIn();
+
+				$('.splash-cerrar').on('click', function(event) {
+					event.preventDefault();
+					splashWrapper.fadeOut(function() {
+						splashWrapper.remove();
+					});
+				});
+			}
+
+			timeLeft--;
+
+		}, 1000);
 	}
 });
 
@@ -982,6 +1041,78 @@ FavoritesView = Ladybug.Scarlet.View.extend({
 
 /* ---------------------------------------------------------------------------------------------- */
 
+SearchView = Ladybug.Scarlet.View.extend({
+	animate: true,
+	onInit: function() {
+		var obj = this;
+		obj.templates.base = Ladybug.Utils.compileTemplate('#section-search');
+		obj.templates.list = Ladybug.Utils.compileTemplate('#section-search-offers');
+		obj.templates.empty = Ladybug.Utils.compileTemplate('#section-search-empty');
+	},
+	onRender: function() {
+		var obj = this,
+			target = $('.app-content');
+		target.html( obj.templates.base() );
+		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
+
+		app.runVelocity( target.find('[data-animable=auto]') );
+
+		var form = $('#form-search');
+
+		form.on('submit', function(event) {
+			event.preventDefault();
+			form.validate({
+				callbacks: {
+					fail: function(field, type, message) {
+						field.closest('.form-group').addClass('has-error');
+						field.on('focus', function() {
+							field.closest('.form-group').removeClass('has-error');
+							field.off('focus');
+						});
+					},
+					success: function() {
+						var data = form.serializeObject();
+						data.zone_id = app.zid;
+
+						app.ajaxCall({
+							endpoint: 'offers/all',
+							type: 'post',
+							data: data,
+							error: function(message) {
+							},
+							success: function(response) {
+								obj.renderSearch(response || []);
+							}
+						});
+					},
+					error: function(fields) {
+						$.alert('Introduce un criterio de búsqueda para continuar.');
+					}
+				}
+			});
+		});
+	},
+	renderSearch: function(response) {
+		var obj = this,
+			target = $('.search-offers');
+
+		console.log(!!response.offers);
+
+		if(response.offers.length) {
+			target.html( obj.templates.list({ offers: response.offers }) );
+			$('.oferta').velocity('transition.slideUpIn');
+
+		} else {
+			console.log('NADA');
+			target.html( obj.templates.empty() );
+			$('.block-content-area').addClass('empty');
+			$('.empty').velocity('transition.slideUpIn');
+		}
+	}
+});
+
+/* ---------------------------------------------------------------------------------------------- */
+
 ZoneView = Ladybug.Scarlet.View.extend({
 	animate: true,
 	onInit: function() {
@@ -1188,6 +1319,7 @@ SessionController = BaseController.extend({
 		obj.pushAction('zone', obj.zoneAction);
 		obj.pushAction('profile', obj.profileAction);
 		obj.pushAction('favorites', obj.favoritesAction);
+		obj.pushAction('search', obj.searchAction);
 
 		//obj.views.header = new HeaderView();
 		obj.views.footer = new FooterView();
@@ -1350,6 +1482,18 @@ SessionController = BaseController.extend({
 			obj.fetchFavorites();
 		});
 	},
+	searchAction: function() {
+		var obj = this;
+		if(!app.checkBearer()) {
+			app.router.navigate('#!/app');
+			return;
+		}
+
+		if (! obj.views['search'] ) {
+			obj.views.search = new SearchView();
+		}
+		obj.setActiveView(obj.views.search);
+	},
 	profileAction: function() {
 		var obj = this;
 		if(!app.checkBearer()) {
@@ -1375,6 +1519,16 @@ SessionController = BaseController.extend({
 	},
 	fetchCategories: function() {
 		var obj = this;
+
+		app.ajaxCall({
+			endpoint: 'splashes/splash/',
+			type: 'post',
+			data: { id_zone: app.zid, id_category: 0 },
+			success: function(response) {
+				obj.view.renderSplash(response || []);
+			}
+		});
+
 		app.ajaxCall({
 			endpoint: 'categories/all',
 			type: 'post',
@@ -1386,10 +1540,20 @@ SessionController = BaseController.extend({
 	},
 	fetchCategory: function(id) {
 		var obj = this;
+
 		app.ajaxCall({
-			endpoint: 'categories/category/' + id,
+			endpoint: 'splashes/splash/',
 			type: 'post',
-			data: { id_zone: app.zid },
+			data: { id_zone: app.zid, id_category: id },
+			success: function(response) {
+				obj.view.renderSplash(response || []);
+			}
+		});
+
+		app.ajaxCall({
+			endpoint: 'categories/offers/',
+			type: 'post',
+			data: { id_zone: app.zid, id_category: id },
 			success: function(response) {
 				obj.view.renderOffers(response || []);
 			}
