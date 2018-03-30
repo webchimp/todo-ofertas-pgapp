@@ -84,21 +84,117 @@
         </nav>
     </script>
     <script type="text/template" id="partial-header"></script>
+    <div class="help-wrapper">
+
+        <a href="#" class="js-help-close help-close"><i class="fa fa-close"></i></a>
+
+        <div class="help-cycle-wrapper">
+            <div class="help-cycle">
+                <article class="step step1">
+                    <img class="img-responsive" src="assets/images/paso1.jpg" alt="Paso 1">
+                    <div class="step-description">
+                        <h2>Paso 1.</h2>
+                        <p>Regístrate a TodoOfertas. Puedes registrarte con Facebook o con tu correo electrónico</p>
+                    </div>
+                </article>
+                <article class="step step2">
+                    <img class="img-responsive" src="assets/images/paso2.jpg" alt="Paso 2">
+                    <div class="step-description">
+                        <h2>Paso 2.</h2>
+                        <p>Selecciona la zona de la ciudad donde quieres encontrar ofertas.</p>
+                    </div>
+                </article>
+                <article class="step step3">
+                    <img class="img-responsive" src="assets/images/paso3.jpg" alt="Paso 3">
+                    <div class="step-description">
+                        <h2>Paso 3.</h2>
+                        <p>Busca ofertas dentro de más de 20 categorías. Desde cortes de pelos hasta obras de teatro.</p>
+                    </div>
+                </article>
+                <article class="step step4">
+                    <img class="img-responsive" src="assets/images/paso4.jpg" alt="Paso 4">
+                    <div class="step-description">
+                        <h2>Paso 4.</h2>
+                        <p>Selecciona la oferta que más te guste y cómprala con tarjeta de credito o en efectivo en tiendas de conveniencia.</p>
+                    </div>
+                </article>
+                <article class="step step5">
+                    <img class="img-responsive" src="assets/images/paso5.jpg" alt="Paso 5">
+                    <div class="step-description">
+                        <h2>Paso 5.</h2>
+                        <p>Ve al establecimiento seleccionado, presenta el código de validación de TodoOfertas y ¡obtén el producto o servicios que hayas comprado!</p>
+                    </div>
+                </article>
+            </div>
+            <div class="help-pager"></div>
+        </div>
+    </div>
     <script type="text/template" id="partial-menu">
         <div class="menu-wrapper">
             <img class="logo img-responsive" src="assets/images/logo-menu.png" alt="Todo Ofertas">
             <ul class="menu">
-                <li><a href="/session/#!/profile">Mi Perfil</a></li>
+                <li><a href="#!/session/profile">Mi Perfil</a></li>
                 <!--<li><a href="#">Notificaciones</a></li>-->
-                <li><a href="/session/#!/purchases">Historial de Compras</a></li>
+                <li><a class="app-section" href="/session/#!/purchases">Historial de Compras</a></li>
                 <li><a href="http://www.todoofertasapp.com/help" target="_blank">Ayuda</a></li>
                 <li><a href="http://www.todoofertasapp.com/contact" target="_blank">Contacto</a></li>
                 <li><a href="http://www.todoofertasapp.com/tos" target="_blank">Legal</a></li>
-                <li><a href="/app/#!/logout">Cerrar Sesión</a></li>
+                <li><a class="app-section" href="/app/#!/logout">Cerrar Sesión</a></li>
             </ul>
         </div>
+        <div class="menu-close"></div>
     </script>
+    <script type="text/template" id="offers-list">
+        <% _.each(offers, function(offer, k) { %>
+            <article class="oferta">
+                <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
+                <a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
 
+                <div class="oferta-negocio">
+                    <img class="negocio-logo" src="" alt="">
+                    <div class="negocio-info">
+                        <h2 class="negocio-nombre">
+                            <%= offer.business.name %>
+                        </h2>
+                        <p class="negocio-direccion">
+                            <%= offer.business.address %>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="oferta-imagen">
+                    <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+                </div>
+
+                <img src="" alt="" class="oferta-category">
+
+                <div class="oferta-access">
+
+                    <div class="price-tag">$
+                        <%= offer.price %>
+                    </div>
+
+                    <i class="fa fa-angle-right access-icon"></i>
+
+                    <date class="oferta-fecha">
+                        <h2>Hasta</h2>
+                        <% var date = new Date(offer.end_date); console.log(date); %>
+                            <span class="fecha-dia"><%= date.getUTCDate() %></span>
+                            <span class="fecha-mes"><%= app.months[date.getUTCMonth()] %></span>
+                    </date>
+
+                    <div class="oferta-titulo">
+                        <h2>
+                            <%= offer.name %>
+                        </h2>
+                        <p>
+                            <%= offer.tagline %>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <% }) %>
+    </script>
     <script type="text/template" id="partial-splash">
         <div class="splash-wrapper">
 
@@ -117,20 +213,6 @@
         </div>
     </script>
 
-    <script type="text/template" id="partial-help">
-        <div class="help-wrapper">
-
-            <div class="help-cycle">
-                <article class="step step1"></article>
-                <article class="step step2"></article>
-                <article class="step step3"></article>
-                <article class="step step4"></article>
-                <article class="step step5"></article>
-            </div>
-
-        </div>
-    </script>
-
     <!-- CATEGORIES -->
     <!-- ####################################################################################### -->
 
@@ -141,7 +223,7 @@
                     <img src="assets/images/monograma.png" alt="Todo Ofertas">
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>Categorías</h2>
             </div>
@@ -177,7 +259,7 @@
                     <a class="js-filtros" href="#"><img src="assets/images/menu-controls-icon.svg" alt="Filtrar"></a>
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>
                     <!-- -->
@@ -215,7 +297,7 @@
 
     <script type="text/template" id="section-category-offers">
 
-        <% console.log(offers) ;_.each(offers, function(offer, k) { %>
+        <% _.each(offers, function(offer, k) { %>
             <article class="oferta">
                 <a href="#" class="js-favorite oferta-favorito <%= offer.favorite ? 'added' : '' %>" data-offer-id="<%= offer.id %>"><i class="fa"></i></a>
                 <a href="#!/session/oferta/<%= offer.id %>" class="oferta-link"></a>
@@ -262,144 +344,6 @@
             <% }) %>
 
     </script>
-    <!-- COMPRA OFERTA -->
-    <!-- ####################################################################################### -->
-
-    <script type="text/template" id="section-compra-gracias">
-        <section class="section section-logged js-section-current section-compra-gracias">
-            <div class="section-title">
-                <div class="title-icon title-icon-left">
-                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
-                </div>
-                <div class="title-icon title-icon-right">
-                    <img src="assets/images/icono-help.png" alt="Ayuda">
-                </div>
-                <h2>COMPRA EXITOSA</h2>
-            </div>
-            <div class="block block-content-area">
-
-                <h2 class="block-title">¡Gracias por tu compra!</h2>
-
-                <div class="monto">
-                    <h3>Monto Pagado</h3>
-                    <h2>$150.<sup>00 MXN</sup></h2>
-                </div>
-
-                <h2 class="block-title">Código de Validación</h2>
-
-                <div class="referencia">
-                    <code>EF6738D</code>
-                    <a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
-                </div>
-
-                <div class="descripcion the-content">
-                    <h2>Instrucciones</h2>
-                    <ol>
-                        <li>Acude a <span class="nombre-negocio"></span>. <a href="#">¿Cómo llegar?</a></li>
-                        <li>Presenta la referencia de pago y haz válida tu oferta.</li>
-                    </ol>
-
-                    <h2>Tu oferta comprada</h2>
-                    <p>Tu oferta comprada se encuentra ahorita en tu historial de compras</p>
-                </div>
-
-                <div class="the-offer">
-                    <!-- -->
-                </div>
-            </div>
-        </section>
-    </script>
-
-    <script type="text/template" id="section-compra-gracias-single">
-
-        <article class="oferta">
-            <div class="oferta-negocio">
-                <img class="negocio-logo" src="" alt="">
-                <div class="negocio-info">
-                    <h2 class="negocio-nombre">
-                        <%= offer.business.name %>
-                    </h2>
-                    <p class="negocio-direccion">
-                        <%= offer.business.address %>
-                    </p>
-                </div>
-            </div>
-
-            <img src="" alt="" class="oferta-category">
-
-            <div class="oferta-access">
-                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
-                <div class="oferta-titulo">
-                    <h2>
-                        <%= offer.name %>
-                    </h2>
-                    <p>
-                        <%= offer.tagline %>
-                    </p>
-                </div>
-            </div>
-        </article>
-    </script>
-    <!-- COMPRA OFERTA -->
-    <!-- ####################################################################################### -->
-
-    <script type="text/template" id="section-compra-oferta">
-        <section class="section section-logged js-section-current section-compra-oferta">
-            <div class="section-title">
-                <h2>Compra Oferta</h2>
-            </div>
-            <div class="block block-content-area">
-
-                <img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
-
-                <h2 class="block-title">Estás a punto de comprar...</h2>
-                <div class="the-offer">
-                    <!-- -->
-                </div>
-
-                <div class="metodo-pago">
-                    <h2>Selecciona tu método de pago</h2>
-                    <ul>
-                        <li class="pago-tarjeta"><a class="js-pago-tarjeta" href="#">Pago con tarjeta</a></li>
-                        <li class="pago-oxxo"><a class="js-pago-oxxo" href="#">Pago en OXXO</a></li>
-                        <li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago en efectivo</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-    </script>
-
-    <script type="text/template" id="section-compra-oferta-single">
-
-        <article class="oferta">
-            <div class="oferta-negocio">
-                <img class="negocio-logo" src="" alt="">
-                <div class="negocio-info">
-                    <h2 class="negocio-nombre">
-                        <%= offer.business.name %>
-                    </h2>
-                    <p class="negocio-direccion">
-                        <%= offer.business.address %>
-                    </p>
-                </div>
-            </div>
-
-            <img src="" alt="" class="oferta-category">
-
-            <div class="oferta-access">
-                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
-                <div class="oferta-titulo">
-                    <h2>
-                        <%= offer.name %>
-                    </h2>
-                    <p>
-                        <%= offer.tagline %>
-                    </p>
-                </div>
-            </div>
-        </article>
-    </script>
     <!-- FAVORITES -->
     <!-- ####################################################################################### -->
 
@@ -410,7 +354,7 @@
                     <img src="assets/images/monograma.png" alt="Todo Ofertas">
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>Favoritos</h2>
             </div>
@@ -532,7 +476,7 @@
                     <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/icono-help.png" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>
                     <!-- -->
@@ -549,9 +493,9 @@
                     </div>
                     <div class="oferta-cta">
                         <div class="margins">
-                            <div class="row row-sm row-5">
+                            <div class="row row-sm row-collapse">
                                 <div class="col col-3 col-sm-3">
-                                    <div class="price-tag"></div>
+                                    <div class="price-tag">&nbsp;</div>
                                 </div>
                                 <div class="col col-9 col-sm-9">
                                     <a href="#" class="js-compra-oferta button button-primary button-large button-block">Comprar</a>
@@ -581,6 +525,10 @@
                 </div>
             </div>
 
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
             <img src="" alt="" class="oferta-category">
 
             <div class="oferta-access">
@@ -601,7 +549,7 @@
         <div class="oferta-content">
             <div class="content-como-llegar">
                 <div class="margins">
-                    <a href="#" class="button button-primary button-large button-block"><i class="fa fa-fw fa-map-marker"></i> Como llegar</a>
+                    <a target="_blank" href="https://www.google.com/maps/?q=<%= offer.business.lat %>,<%= offer.business.lng %>" class="button button-primary button-block"><i class="fa fa-fw fa-map-marker"></i> Como llegar</a>
                 </div>
 
                 <h2 class="content-title">Descripción de Oferta</h2>
@@ -630,7 +578,7 @@
                     <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atrás"></a>
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/icono-help.png" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>Pago con Tarjeta</h2>
             </div>
@@ -642,7 +590,9 @@
 
                 <div class="monto">
                     <p>Monto a pagar</p>
-                    <h3 class="monto"></h3>
+                    <h3 class="monto-price">
+                        <!-- -->
+                    </h3>
                 </div>
 
                 <div class="margins">
@@ -704,10 +654,367 @@
                 </div>
             </div>
 
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
             <img src="" alt="" class="oferta-category">
 
             <div class="oferta-access">
-                <a href="#" class="oferta-favorito"><i class="fa fa-heart-o"></i></a>
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-oxxo">
+        <section class="section section-logged js-section-current section-compra-gracias section-compra-oxxo">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>INTENCIÓN DE COMPRA EXITOSA</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <h2 class="block-title">¡Ahora puedes pagar tu oferta!</h2>
+
+                <div class="monto">
+                    <h3>Monto a pagar</h3>
+                    <h2 class="monto-price"></h2>
+                </div>
+
+                <h2 class="block-title">Referencia Open Pay</h2>
+
+                <div class="referencia">
+                    <code class="referencia-code"></code>
+                    <a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Cómo realizar el pago</h2>
+                    <ol>
+                        <li>Acude a la tienda OXXO más cercana.</li>
+                        <li>Indica en caja que quieres realizar un pago de <strong>OXXOPay</strong>.</li>
+                        <li>Dicta al cajero el número de referencia de esta ficha para que la tecleé directamente en la pantalla de venta.</li>
+                        <li>Realiza el pago correspondiente con dinero en efectivo.</li>
+                        <li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En él podrás verificar que se haya realizado correctamente</strong>. Conserva este comprobante de pago</li>
+                    </ol>
+
+                    <div class="paso-final">
+                        <p>Al completar estos pasos, <strong>TodoOfertas</strong> te enviará un correo confirmando tu pago de manera inmediata.</p>
+                    </div>
+                </div>
+
+                <div class="botones-fin">
+                    <p><a href="#!/session/history" class="button button-primary button-block button-ellipsis">Ver historial de compra</a></p>
+                    <p><a href="#!/session/categories" class="button button-secondary button-block button-ellipsis">Seguir comprando</a></p>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Oferta a comprar</h2>
+                </div>
+
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-oxxo-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-oferta">
+        <section class="section section-logged js-section-current section-compra-oferta">
+            <div class="section-title">
+                <h2>Compra Oferta</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <img src="assets/images/monograma-marca-agua.png" alt="" class="marca-agua">
+
+                <h2 class="block-title">Estás a punto de comprar...</h2>
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+
+                <div class="metodo-pago">
+                    <h2>Selecciona tu método de pago</h2>
+                    <ul>
+                        <li class="pago-tarjeta"><a class="js-pago-tarjeta" href="#">Pago con tarjeta</a></li>
+                        <li class="pago-oxxo"><a class="js-pago-oxxo" href="#">Pago en OXXO</a></li>
+                        <li class="pago-efectivo"><a class="js-pago-efectivo" href="#">Pago en efectivo</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-oferta-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-tienda">
+        <section class="section section-logged js-section-current section-compra-gracias section-compra-tienda">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>INTENCIÓN DE COMPRA EXITOSA</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <h2 class="block-title">¡Ahora puedes pagar tu oferta!</h2>
+
+                <div class="monto">
+                    <h3>Monto a pagar</h3>
+                    <h2 class="monto-price"></h2>
+                </div>
+
+                <h2 class="block-title">Código de Barras</h2>
+
+                <div class="referencia">
+                    <img class="referencia-code" src="">
+                    <a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Cómo realizar el pago</h2>
+                    <ol>
+                        <li>Acude a cualquier tienda afiliada</li>
+                        <li>Entrega al cajero el código de barras y menciona que realizarás un pago de servicios Paynet</li>
+                        <li>Realiza el pago en efectivo por $<span class="monto-price"></span> (más $8 MXN por comisión)</li>
+                        <li>Conserva el ticket para cualquier aclaración</li>
+                    </ol>
+
+                    <div class="paso-final">
+                        <p>Al completar estos pasos, <strong>TodoOfertas</strong> te enviará un correo confirmando tu pago de manera inmediata.</p>
+                    </div>
+
+                    <h2>Tiendas Afiliadas</h2>
+                    <p class="text-center"><img class="img-responsive" src="assets/images/tiendas-afiliadas.jpg" alt="Tiendas Afiliadas"></p>
+                </div>
+
+                <div class="botones-fin">
+                    <p><a href="#!/session/history" class="button button-primary button-block button-ellipsis">Ver historial de compra</a></p>
+                    <p><a href="#!/session/categories" class="button button-secondary button-block button-ellipsis">Seguir comprando</a></p>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Oferta a comprar</h2>
+                </div>
+
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-tienda-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
+                <div class="oferta-titulo">
+                    <h2>
+                        <%= offer.name %>
+                    </h2>
+                    <p>
+                        <%= offer.tagline %>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </script>
+    <!-- COMPRA OFERTA -->
+    <!-- ####################################################################################### -->
+
+    <script type="text/template" id="section-compra-gracias">
+        <section class="section section-logged js-section-current section-compra-gracias">
+            <div class="section-title">
+                <div class="title-icon title-icon-left">
+                    <img src="assets/images/monograma.png" alt="Todo Ofertas">
+                </div>
+                <div class="title-icon title-icon-right">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                </div>
+                <h2>COMPRA EXITOSA</h2>
+            </div>
+            <div class="block block-content-area">
+
+                <h2 class="block-title">¡Gracias por tu compra!</h2>
+
+                <div class="monto">
+                    <h3>Monto Pagado</h3>
+                    <h2 class="monto-price"></h2>
+                </div>
+
+                <h2 class="block-title">Código de Validación</h2>
+
+                <div class="referencia">
+                    <code class="referencia-code"></code>
+                    <a href="#" class="button button-primary button-block button-ellipsis">Guardar referencia en mis fotos</a>
+                </div>
+
+                <div class="descripcion the-content">
+                    <h2>Instrucciones</h2>
+                    <ol>
+                        <li>Acude a <span class="negocio-nombre"></span>. <a href="#" target="_blank" class="negocio-link">¿Cómo llegar?</a></li>
+                        <li>Presenta tu código de validación y haz válida tu oferta.</li>
+                    </ol>
+                </div>
+                <div class="botones-fin">
+                    <p><a href="#!/session/history" class="button button-primary button-block button-ellipsis">Ver historial de compra</a></p>
+                    <p><a href="#!/session/categories" class="button button-secondary button-block button-ellipsis">Seguir comprando</a></p>
+                </div>
+                <div class="descripcion the-content">
+                    <h2>Tu oferta comprada</h2>
+                    <p>Tu oferta comprada se encuentra ahorita en tu historial de compras</p>
+                </div>
+
+                <div class="the-offer">
+                    <!-- -->
+                </div>
+            </div>
+        </section>
+    </script>
+
+    <script type="text/template" id="section-compra-gracias-single">
+
+        <article class="oferta">
+            <div class="oferta-negocio">
+                <img class="negocio-logo" src="" alt="">
+                <div class="negocio-info">
+                    <h2 class="negocio-nombre">
+                        <%= offer.business.name %>
+                    </h2>
+                    <p class="negocio-direccion">
+                        <%= offer.business.address %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="oferta-imagen">
+                <img src="<%= offer.metas.gallery ? offer.metas.gallery[0].full : '' %>" alt="">
+            </div>
+
+            <img src="" alt="" class="oferta-category">
+
+            <div class="oferta-access">
+                <div class="price-tag">$
+                    <%= offer.price %>
+                </div>
                 <div class="oferta-titulo">
                     <h2>
                         <%= offer.name %>
@@ -729,7 +1036,7 @@
                     <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>Mi Perfil</h2>
             </div>
@@ -894,7 +1201,7 @@
                     <a class="js-back" href="#"><img src="assets/images/icono-back.png" alt="Atras"></a>
                 </div>
                 <div class="title-icon title-icon-right">
-                    <img src="assets/images/menu-question-icon.svg" alt="Ayuda">
+                    <img class="js-help" src="assets/images/menu-question-icon.svg" alt="Ayuda">
                 </div>
                 <h2>Buscar</h2>
             </div>
@@ -1062,6 +1369,8 @@
     <script type="text/javascript" src="assets/scripts/jquery.form.min.js"></script>
     <script type="text/javascript" src="assets/scripts/jquery.alert.min.js"></script>
     <script type="text/javascript" src="assets/scripts/js.cookie.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.cycle2.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.cycle2.swipe.min.js"></script>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="facebookConnectPlugin.js"></script>

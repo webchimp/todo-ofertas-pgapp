@@ -131,22 +131,37 @@ App = Ladybug.Scarlet.Application.extend({
 			$('.app-nav-menu').velocity('transition.slideUpIn', { duration: 350, display: 'flex' });
 		});
 
-		$('body').on('click', '.app-nav-menu', function(event) {
+		$('body').on('click', '.app-nav-menu .menu-close', function(event) {
 			event.preventDefault();
 			$('.app-nav-menu').velocity('transition.slideDownOut', { duration: 350 });
 		});
 
-		$('body').on('click', '.app-nav-menu *', function(event) {
-			event.stopPropagation();
-		});
-
-		$('body').on('click', '.app-nav-menu a', function(event) {
+		$('body').on('click', '.app-nav-menu a.app-section', function(event) {
 			event.preventDefault();
 			var el = $(this),
 				href = el.attr('href');
 				$('.app-nav-menu').velocity('transition.slideLeftOut', { duration: 350, complete: function() {
 					obj.router.navigate(href);
 				} });
+		});
+
+		$('body').on('click', '.js-help', function(event) {
+			event.preventDefault();
+			$('.help-wrapper').velocity('transition.expandIn', { display: 'flex' });
+		});
+
+		$('body').on('click', '.js-help-close', function(event) {
+			event.preventDefault();
+			$('.help-wrapper').velocity('transition.expandOut', { display: 'none' });
+		});
+
+		$('.help-cycle').cycle({
+			timeout: 0,
+			fx: 'scrollHorz',
+			slides: '> .step',
+			swipe: true,
+			pager: '.help-pager',
+			pagerTemplate: '<a></a>'
 		});
 
 		$('body').on('click', '.js-favorite', function(event) {
@@ -626,30 +641,34 @@ CategoriesView = Ladybug.Scarlet.View.extend({
 		var obj = this,
 			splashWrapper = $('.splash-categories');
 
-		splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
+		if(response.splash) {
 
-		var timeLeft = response.splash.duration;
-		var splashTimer = setInterval(function() {
+			splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
+			$('.splash-area').velocity('transition.expandIn', { display: 'flex' });
 
-			$('.splash-timer').text(timeLeft);
+			var timeLeft = response.splash.duration;
+			var splashTimer = setInterval(function() {
 
-			if(timeLeft <= 0) {
+				$('.splash-timer').text(timeLeft);
 
-				clearInterval(splashTimer);
-				$('.splash-disclaimer').html('');
-				$('.splash-buttons-wrapper').fadeIn();
+				if(timeLeft <= 0) {
 
-				$('.splash-cerrar').on('click', function(event) {
-					event.preventDefault();
-					splashWrapper.fadeOut(function() {
-						splashWrapper.remove();
+					clearInterval(splashTimer);
+					$('.splash-disclaimer').html('');
+					$('.splash-buttons-wrapper').fadeIn();
+
+					$('.splash-cerrar').on('click', function(event) {
+						event.preventDefault();
+						splashWrapper.fadeOut(function() {
+							splashWrapper.remove();
+						});
 					});
-				});
-			}
+				}
 
-			timeLeft--;
+				timeLeft--;
 
-		}, 1000);
+			}, 1000);
+		}
 	}
 });
 
@@ -660,7 +679,7 @@ CategoryView = Ladybug.Scarlet.View.extend({
 	onInit: function() {
 		var obj = this;
 		obj.templates.base = Ladybug.Utils.compileTemplate('#section-category');
-		obj.templates.list = Ladybug.Utils.compileTemplate('#section-category-offers');
+		obj.templates.list = Ladybug.Utils.compileTemplate('#offers-list');
 		obj.templates.splash = Ladybug.Utils.compileTemplate('#partial-splash');
 	},
 	onRender: function() {
@@ -676,7 +695,6 @@ CategoryView = Ladybug.Scarlet.View.extend({
 			target = $('.category-offers');
 
 		$('.section-title h2').text(response.category.name).hide().fadeIn();
-		app.activeCategory = response.category.name;
 
 		target.html( obj.templates.list({ offers: response.offers }) );
 		$('.oferta').velocity('transition.slideUpIn');
@@ -684,36 +702,40 @@ CategoryView = Ladybug.Scarlet.View.extend({
 	renderSplash: function(response) {
 		var obj = this,
 			splashWrapper = $('.splash-category');
-		splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
 
-		var timeLeft = response.splash.duration;
-		var splashTimer = setInterval(function() {
+		if(response.splash) {
+			splashWrapper.html( obj.templates.splash({ splash: response.splash }) );
+			$('.splash-area').velocity('transition.expandIn', { display: 'flex' });
 
-			$('.splash-timer').text(timeLeft);
+			var timeLeft = response.splash.duration;
+			var splashTimer = setInterval(function() {
 
-			if(timeLeft <= 0) {
+				$('.splash-timer').text(timeLeft);
 
-				clearInterval(splashTimer);
-				$('.splash-disclaimer').html('');
-				$('.splash-buttons-wrapper').fadeIn();
+				if(timeLeft <= 0) {
 
-				$('.splash-cerrar').on('click', function(event) {
-					event.preventDefault();
-					splashWrapper.fadeOut(function() {
-						splashWrapper.remove();
+					clearInterval(splashTimer);
+					$('.splash-disclaimer').html('');
+					$('.splash-buttons-wrapper').fadeIn();
+
+					$('.splash-cerrar').on('click', function(event) {
+						event.preventDefault();
+						splashWrapper.fadeOut(function() {
+							splashWrapper.remove();
+						});
 					});
-				});
-			}
+				}
 
-			timeLeft--;
+				timeLeft--;
 
-		}, 1000);
+			}, 1000);
+		}
 	}
 });
 
 /* ---------------------------------------------------------------------------------------------- */
 
-OfertaView = Ladybug.Scarlet.View.extend({
+OfferView = Ladybug.Scarlet.View.extend({
 	animate: true,
 	onInit: function() {
 		var obj = this;
@@ -732,7 +754,7 @@ OfertaView = Ladybug.Scarlet.View.extend({
 		var obj = this,
 			target = $('.the-offer');
 
-		$('.section-title h2').text(app.activeCategory).hide().fadeIn();
+		$('.section-title h2').text(response.category.name).hide().fadeIn();
 		target.html( obj.templates.single({ offer: response }) );
 		$('.the-offer').velocity('transition.slideUpIn');
 
@@ -751,7 +773,7 @@ OfertaView = Ladybug.Scarlet.View.extend({
 
 /* ---------------------------------------------------------------------------------------------- */
 
-CompraOfertaView = Ladybug.Scarlet.View.extend({
+PaymentSelectView = Ladybug.Scarlet.View.extend({
 	animate: true,
 	onInit: function() {
 		var obj = this;
@@ -771,15 +793,14 @@ CompraOfertaView = Ladybug.Scarlet.View.extend({
 		var obj = this,
 			target = $('.the-offer');
 
-
-
 		app.activeOffer = response.id;
 		target.html( obj.templates.single({ offer: response }) );
 		$('.the-offer').velocity('transition.slideUpIn');
 		$('.metodo-pago').velocity('transition.slideUpIn', { delay: 600 });
 
 		$('.js-pago-tarjeta').attr('href', '#!/session/pago-tarjeta/' + response.id);
-		$('.js-pago-efectivo').attr('href', '#!/session/pago-efectivo/' + response.id);
+		$('.js-pago-efectivo').attr('href', '#!/session/pago-tienda/' + response.id);
+		$('.js-pago-oxxo').attr('href', '#!/session/pago-oxxo/' + response.id);
 	}
 });
 
@@ -800,19 +821,23 @@ CompraGraciasView = Ladybug.Scarlet.View.extend({
 
 		app.runVelocity( target.find('[data-animable=auto]') );
 	},
-	renderOffer: function(response) {
+	renderOrder: function(response) {
 		var obj = this,
 			target = $('.the-offer');
 
-		app.activeOffer = response.id;
-		target.html( obj.templates.single({ offer: response }) );
+		$('.monto-price').html('$' + response.offer.price + ' <sup>MXN</sup>');
+		$('.referencia-code').html(response.code);
+		$('.negocio-nombre').html(response.offer.business.address);
+		$('.negocio-link').prop('href', 'https://www.google.com/maps/?q=' + response.offer.business.lat + ',' + response.offer.business.lng);
+
+		target.html( obj.templates.single({ offer: response.offer }) );
 		$('.the-offer').velocity('transition.slideUpIn');
 	}
 });
 
 /* ---------------------------------------------------------------------------------------------- */
 
-PagoTarjetaView = Ladybug.Scarlet.View.extend({
+PaymentCardView = Ladybug.Scarlet.View.extend({
 	animate: true,
 	onInit: function() {
 		var obj = this;
@@ -831,9 +856,10 @@ PagoTarjetaView = Ladybug.Scarlet.View.extend({
 		OpenPay.setId('mi1s7jqzmdnuny1uubmq');
 		OpenPay.setApiKey('pk_b4c8bbe046fd466b9b178a433d5a7dc1');
 
-		var deviceSessionId = OpenPay.deviceData.setup('payment-form', 'device_session_id');
+		var deviceSessionId = OpenPay.deviceData.setup('payment-form', 'device_session_id'),
+			form = $('#payment-form');
 
-		$('#payment-form').on('submit', function(event) {
+		form.on('submit', function(event) {
 			event.preventDefault();
 			var el = $(this),
 				data = el.serializeObject(),
@@ -841,7 +867,7 @@ PagoTarjetaView = Ladybug.Scarlet.View.extend({
 
 			console.log(data);
 
-			buttonPagar.prop( 'disabled', true);
+			buttonPagar.prop( 'disabled', true).loading();
 			data.offer_id = app.activeOffer;
 
 			OpenPay.token.extractFormAndCreate(
@@ -857,8 +883,17 @@ PagoTarjetaView = Ladybug.Scarlet.View.extend({
 						endpoint: 'payments/credit-card',
 						type: 'post',
 						data: data,
+						error: function(message) {
+
+							$('#payment-form').find('input, select').prop('disabled', false);
+							$('#payment-form').find('button[type=submit]').prop('disabled', false).loading('done');
+							$.alert(message);
+						},
 						success: function(response) {
-							app.router.navigate('#!/session/compra-gracias/1');
+
+							if(response.status == 'completed') {
+								app.router.navigate('#!/session/compra-gracias/' + response.order.id);
+							}
 						}
 					});
 				},
@@ -877,6 +912,91 @@ PagoTarjetaView = Ladybug.Scarlet.View.extend({
 		app.activeOffer = response.id;
 		target.html( obj.templates.single({ offer: response }) );
 		$('.the-offer').velocity('transition.slideUpIn');
+
+		$('.monto-price').html('$' + response.price + '<sup>MXN</sup>');
+	}
+});
+
+/* ---------------------------------------------------------------------------------------------- */
+
+PaymentStoreView = Ladybug.Scarlet.View.extend({
+	animate: true,
+	onInit: function() {
+		var obj = this;
+		obj.templates.base = Ladybug.Utils.compileTemplate('#section-compra-tienda');
+		obj.templates.single = Ladybug.Utils.compileTemplate('#section-compra-tienda-single');
+	},
+	onRender: function() {
+		var obj = this,
+			target = $('.app-content');
+		target.html( obj.templates.base() );
+		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
+
+		app.runVelocity( target.find('[data-animable=auto]') );
+	},
+	renderOffer: function(response) {
+		var obj = this,
+			target = $('.the-offer');
+
+		app.activeOffer = response.id;
+		target.html( obj.templates.single({ offer: response }) );
+		$('.the-offer').velocity('transition.slideUpIn');
+
+		$('.monto-price').html('$' + response.price + '<sup>MXN</sup>');
+
+		app.ajaxCall({
+			endpoint: 'payments/store',
+			type: 'post',
+			data: { offer_id: response.id },
+			error: function(message) {
+				$.alert(message);
+			},
+			success: function(response) {
+
+				$('.referencia-code').prop('src', response.barcode);
+			}
+		});
+	}
+});
+
+/* ---------------------------------------------------------------------------------------------- */
+
+PaymentOxxoView = Ladybug.Scarlet.View.extend({
+	animate: true,
+	onInit: function() {
+		var obj = this;
+		obj.templates.base = Ladybug.Utils.compileTemplate('#section-compra-oxxo');
+		obj.templates.single = Ladybug.Utils.compileTemplate('#section-compra-oxxo-single');
+	},
+	onRender: function() {
+		var obj = this,
+			target = $('.app-content');
+		target.html( obj.templates.base() );
+		target.attr('class', 'app-content ' + app.slug + ' ' + app.action);
+
+		app.runVelocity( target.find('[data-animable=auto]') );
+	},
+	renderOffer: function(response) {
+		var obj = this,
+			target = $('.the-offer');
+
+		app.activeOffer = response.id;
+		target.html( obj.templates.single({ offer: response }) );
+		$('.the-offer').velocity('transition.slideUpIn');
+		$('.monto-price').html('$' + response.price + '<sup>MXN</sup>');
+
+		app.ajaxCall({
+			endpoint: 'payments/oxxo',
+			type: 'post',
+			data: { offer_id: response.id },
+			error: function(message) {
+				$.alert(message);
+			},
+			success: function(response) {
+
+				$('.referencia-code').html(response.reference);
+			}
+		});
 	}
 });
 
@@ -909,6 +1029,7 @@ ZonesView = Ladybug.Scarlet.View.extend({
 				zid = el.data('zid');
 
 			Cookies.set('zid', zid);
+			window.localStorage.setItem('zid', zid);
 			app.zid = zid;
 			app.router.navigate('#!/session/categories');
 		});
@@ -1012,7 +1133,7 @@ FavoritesView = Ladybug.Scarlet.View.extend({
 	onInit: function() {
 		var obj = this;
 		obj.templates.base = Ladybug.Utils.compileTemplate('#section-favorites');
-		obj.templates.list = Ladybug.Utils.compileTemplate('#section-favorites-offers');
+		obj.templates.list = Ladybug.Utils.compileTemplate('#offers-list');
 		obj.templates.empty = Ladybug.Utils.compileTemplate('#section-favorites-empty');
 	},
 	onRender: function() {
@@ -1162,6 +1283,7 @@ ZoneView = Ladybug.Scarlet.View.extend({
 							success: function(response) {
 
 								app.zid = data.zone_id;
+								Cookies.set('zid', data.zone_id);
 								window.localStorage.setItem('zid', data.zone_id);
 								app.router.navigate('session/#!/categories');
 							}
@@ -1314,6 +1436,8 @@ SessionController = BaseController.extend({
 		obj.pushAction('oferta', obj.ofertaAction);
 		obj.pushAction('compra-oferta', obj.compraOfertaAction);
 		obj.pushAction('pago-tarjeta', obj.pagoTarjetaAction);
+		obj.pushAction('pago-tienda', obj.pagoTiendaAction);
+		obj.pushAction('pago-oxxo', obj.pagoOxxoAction);
 		obj.pushAction('compra-gracias', obj.compraGraciasAction);
 		obj.pushAction('zones', obj.zonesAction);
 		obj.pushAction('zone', obj.zoneAction);
@@ -1377,7 +1501,7 @@ SessionController = BaseController.extend({
 		}
 
 		if (! obj.views['oferta'] ) {
-			obj.views.oferta = new OfertaView();
+			obj.views.oferta = new OfferView();
 		}
 		obj.setActiveView(obj.views.oferta, function() {
 			obj.fetchOffer(id);
@@ -1396,7 +1520,7 @@ SessionController = BaseController.extend({
 		}
 
 		if (! obj.views['compra-oferta'] ) {
-			obj.views.compraOferta = new CompraOfertaView();
+			obj.views.compraOferta = new PaymentSelectView();
 		}
 		obj.setActiveView(obj.views.compraOferta, function() {
 			obj.fetchOffer(id);
@@ -1418,7 +1542,7 @@ SessionController = BaseController.extend({
 			obj.views.compraGracias = new CompraGraciasView();
 		}
 		obj.setActiveView(obj.views.compraGracias, function() {
-			obj.fetchOffer(id);
+			obj.fetchOrder(id);
 		});
 	},
 	pagoTarjetaAction: function(id) {
@@ -1434,9 +1558,47 @@ SessionController = BaseController.extend({
 		}
 
 		if (! obj.views['pago-tarjeta'] ) {
-			obj.views.pagoTarjeta = new PagoTarjetaView();
+			obj.views.pagoTarjeta = new PaymentCardView();
 		}
 		obj.setActiveView(obj.views.pagoTarjeta, function() {
+			obj.fetchOffer(id);
+		});
+	},
+	pagoTiendaAction: function(id) {
+		var obj = this;
+		if(!app.checkBearer()) {
+			app.router.navigate('#!/app');
+			return;
+		}
+
+		if(!id) {
+			app.router.navigate('#!/session/categories');
+			return;
+		}
+
+		if (! obj.views['pago-tienda'] ) {
+			obj.views.pagoTienda = new PaymentStoreView();
+		}
+		obj.setActiveView(obj.views.pagoTienda, function() {
+			obj.fetchOffer(id);
+		});
+	},
+	pagoOxxoAction: function(id) {
+		var obj = this;
+		if(!app.checkBearer()) {
+			app.router.navigate('#!/app');
+			return;
+		}
+
+		if(!id) {
+			app.router.navigate('#!/session/categories');
+			return;
+		}
+
+		if (! obj.views['pago-oxxo'] ) {
+			obj.views.pagoOxxo = new PaymentOxxoView();
+		}
+		obj.setActiveView(obj.views.pagoOxxo, function() {
 			obj.fetchOffer(id);
 		});
 	},
@@ -1566,6 +1728,16 @@ SessionController = BaseController.extend({
 			type: 'post',
 			success: function(response) {
 				obj.view.renderOffer(response.offer || []);
+			}
+		});
+	},
+	fetchOrder: function(id) {
+		var obj = this;
+		app.ajaxCall({
+			endpoint: 'orders/order/' + id,
+			type: 'post',
+			success: function(response) {
+				obj.view.renderOrder(response.order || []);
 			}
 		});
 	},
